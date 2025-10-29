@@ -8,9 +8,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      },
+      colors: {
+        'background': 'var(--color-background)',
+        'primary': 'var(--color-primary)',
+        'secondary': 'var(--color-secondary)',
+        'accent': 'var(--color-accent)',
+        'accent-secondary': 'var(--color-accent-secondary)',
+        'border': 'var(--color-border)',
+        'card': 'var(--color-card)',
       },
     },
   },
   plugins: [],
 }
+

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Menu, X, FileText } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,64 +24,25 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled
-        ? 'bg-gray-900/80 backdrop-blur-xl shadow-lg shadow-blue-500/5 border-b border-white/10'
+        ? 'bg-black/70 backdrop-blur-xl shadow-lg border-b border-border'
         : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo with gradient */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-20">
+          {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#home" className="text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent hover:from-blue-200 hover:to-cyan-200 transition-all duration-300">
-              Atharva Mahajan
+            <a href="#home" className="text-xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter">
+              AM
             </a>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="relative text-gray-300 hover:text-white transition-all duration-300 text-sm font-medium group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-              ))}
-              <a
-                href="/atharva_mahajan_cv.pdf"
-                download
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 text-sm font-medium shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-105"
-              >
-                <FileText size={16} />
-                Resume
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-300 hover:text-white bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation with glassmorphism */}
-      {isOpen && (
-        <div className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
+                className="text-secondary hover:text-accent transition-colors duration-300 text-sm font-medium uppercase tracking-wider"
               >
                 {item.name}
               </a>
@@ -89,10 +50,45 @@ const Navbar = () => {
             <a
               href="/atharva_mahajan_cv.pdf"
               download
-              className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 mt-2"
+              className="px-4 sm:px-5 py-2 sm:py-2.5 md:py-3 bg-accent text-background rounded font-semibold text-sm hover:bg-opacity-90 transition-all duration-300 uppercase tracking-wider"
             >
-              <FileText size={16} />
-              Download Resume
+              Resume
+            </a>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-secondary hover:text-accent transition-colors duration-300"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <div className="md:hidden bg-background border-t border-border">
+          <div className="px-4 pt-2 pb-3 space-y-3">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="block px-3 py-2 text-secondary hover:text-accent transition-colors duration-300 text-sm font-medium uppercase tracking-wider"
+              >
+                {item.name}
+              </a>
+            ))}
+            <a
+              href="/atharva_mahajan_cv.pdf"
+              download
+              className="block px-3 py-2 bg-accent text-background rounded font-semibold text-sm hover:bg-opacity-90 transition-all duration-300 uppercase tracking-wider text-center"
+            >
+              Resume
             </a>
           </div>
         </div>

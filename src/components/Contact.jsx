@@ -1,93 +1,85 @@
 import React from 'react'
-import { Mail, Linkedin } from 'lucide-react'
-import { socialLinks } from '../data/portfolioData'
+import { Mail, Linkedin, Github } from 'lucide-react'
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative py-20 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/5 rounded-full mix-blend-multiply filter blur-3xl"></div>
-
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-12 sm:py-16 md:py-24 lg:py-32">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
-              Get In Touch
-            </span>
+        <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter mb-3 sm:mb-4">
+            Contact
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
+          <div className="w-20 sm:w-24 h-0.5 bg-accent"></div>
         </div>
 
         {/* Contact Content */}
-        <div className="text-center">
-          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+        <div className="max-w-4xl mx-auto text-center space-y-8 sm:space-y-12">
+          <p className="text-lg sm:text-xl md:text-2xl text-secondary leading-relaxed">
             I'm currently exploring opportunities in computational fluid dynamics, machine learning, and aerodynamics research.
             Whether you have a question or just want to say hi, feel free to reach out!
           </p>
 
-          <p className="text-lg text-gray-400 mb-12">
-            My inbox is always open. I'll try my best to get back to you!
-          </p>
-
           {/* Contact Methods */}
-          <div className="grid sm:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <a
-              href="mailto:atharvm@umich.edu"
-              className="group relative flex items-center justify-center gap-3 p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/10 hover:scale-[1.02]"
+              href="mailto:atharva@umich.edu"
+              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 rounded-2xl transition-all duration-300"></div>
-              <Mail className="text-blue-400 group-hover:text-cyan-400 transition-colors duration-300 relative" size={24} />
-              <div className="text-left relative">
-                <p className="text-sm text-gray-400">Email</p>
-                <p className="text-white font-medium">atharvm@umich.edu</p>
+              <Mail className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
+              <div>
+                <p className="text-xs text-secondary uppercase tracking-wider mb-1">Email</p>
+                <p className="text-sm sm:text-base text-primary font-medium break-all">atharva@umich.edu</p>
               </div>
             </a>
 
             <a
-              href="https://www.linkedin.com/in/atharva-mahajan-"
+              href="https://www.linkedin.com/in/atharva-mahajan-4b8b3a1b3/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-3 p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/10 hover:scale-[1.02]"
+              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 rounded-2xl transition-all duration-300"></div>
-              <Linkedin className="text-blue-400 group-hover:text-cyan-400 transition-colors duration-300 relative" size={24} />
-              <div className="text-left relative">
-                <p className="text-sm text-gray-400">LinkedIn</p>
-                <p className="text-white font-medium">Connect with me</p>
+              <Linkedin className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
+              <div>
+                <p className="text-xs text-secondary uppercase tracking-wider mb-1">LinkedIn</p>
+                <p className="text-sm sm:text-base text-primary font-medium">Connect with me</p>
+              </div>
+            </a>
+
+            <a
+              href="https://github.com/AppliedAero1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group sm:col-span-2 md:col-span-1"
+            >
+              <Github className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
+              <div>
+                <p className="text-xs text-secondary uppercase tracking-wider mb-1">GitHub</p>
+                <p className="text-sm sm:text-base text-primary font-medium">View my code</p>
               </div>
             </a>
           </div>
 
-          {/* Enhanced CTA Button */}
-          <a
-            href="mailto:atharvm@umich.edu"
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-medium text-lg shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60 hover:scale-105"
-          >
-            Say Hello
-            <Mail size={20} className="group-hover:rotate-12 transition-transform duration-300" />
-          </a>
+          {/* CTA Button */}
+          <div className="pt-6 sm:pt-8">
+            <a
+              href="mailto:atharva@umich.edu"
+              className="inline-flex items-center gap-2 px-8 py-3 sm:py-4 bg-accent text-background rounded font-bold text-base sm:text-lg hover:bg-opacity-90 transition-all duration-300 uppercase tracking-wider shadow-lg hover:scale-105"
+            >
+              Say Hello
+              <Mail size={20} />
+            </a>
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-20 pt-8 border-t border-gray-800/50 text-center">
-          <p className="text-gray-400 text-sm mb-4">
-            Designed & Built by Atharva Mahajan
+        <div className="mt-16 sm:mt-20 pt-8 border-t border-border text-center space-y-4">
+          <p className="text-secondary text-sm sm:text-base">
+            © 2025 Atharva Mahajan. All rights reserved.
           </p>
-          <div className="flex justify-center gap-6">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-cyan-400 transition-all duration-300 text-sm font-medium"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
+          <p className="text-secondary text-xs sm:text-sm">
+            Designed & Built with React + Vite + Tailwind CSS
+          </p>
         </div>
       </div>
     </section>
