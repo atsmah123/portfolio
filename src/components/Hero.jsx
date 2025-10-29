@@ -11,6 +11,16 @@ const Hero = () => {
         <div className="absolute w-20 sm:w-24 md:w-36 h-0.5 sm:h-1 md:w-1 bg-gradient-to-r from-transparent via-accent-secondary to-transparent opacity-30 streamline" style={{ top: '40%', animationDelay: '2s' }}></div>
         <div className="absolute w-20 sm:w-32 md:w-36 h-0.5 sm:h-1 md:w-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-30 streamline" style={{ top: '60%', animationDelay: '4s' }}></div>
         <div className="absolute w-20 sm:w-24 md:w-36 h-0.5 sm:h-1 md:w-1 bg-gradient-to-r from-transparent via-accent-secondary to-transparent opacity-30 streamline" style={{ top: '80%', animationDelay: '6s' }}></div>
+
+        {/* Subtle ML kernel grid */}
+        <div className="kernel-grid absolute bottom-6 left-6 w-28 h-28 sm:w-36 sm:h-36 opacity-10"></div>
+
+        {/* Faint Navier–Stokes equations */}
+        <div className="absolute top-8 left-6 text-secondary/30 text-xs sm:text-sm font-mono select-none hidden md:block">
+          ∂u/∂t + (u·∇)u = -∇p + ν∇²u + f
+          <br />
+          ∇·u = 0
+        </div>
       </div>
 
       {/* Floating airfoil */}
@@ -24,20 +34,28 @@ const Hero = () => {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-16 md:py-24 lg:py-32">
         <div className="text-center space-y-8 sm:space-y-12">
-          {/* Name */}
-          <h1 className="text-6xl sm:text-7xl md:text-9xl lg:text-[160px] font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter leading-none">
-            Atharva<br />Mahajan
-          </h1>
+          {/* Name + nested profile orb */}
+          <div className="relative inline-block">
+            <h1 className="text-6xl sm:text-7xl md:text-9xl lg:text-[160px] font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter leading-[0.85]">
+              <span className="block">Atharva</span>
+              <span className="block">Mahajan</span>
+            </h1>
+            {/* Profile orb positioned between the lines */}
+            <img
+              src="/profile.jpeg"
+              alt="Atharva Mahajan"
+              className="profile-orb absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%]"
+            />
+          </div>
 
           {/* Title */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-secondary via-primary to-secondary tracking-tight">
-            MS Mechanical Engineering
+            Fluid Mechanics × Machine Learning
           </h2>
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg md:text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-            Specializing in CFD, Machine Learning, and Optimization.<br />
-            Driving innovation in engineering with advanced numerical methods, AI, and aerodynamic research.
+            Working at the intersection of CFD and AI: high-fidelity simulations, CNN-based surrogates, and deep reinforcement learning for flow control and design exploration.
           </p>
 
           {/* CTA Buttons */}
@@ -86,6 +104,13 @@ const Hero = () => {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Tech tags */}
+      <div className="absolute right-6 bottom-6 hidden md:flex gap-2 pointer-events-none">
+        <span className="tech-chip">CFD</span>
+        <span className="tech-chip">CNNs</span>
+        <span className="tech-chip">DRL</span>
       </div>
 
       {/* Scroll indicator */}
