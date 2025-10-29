@@ -125,16 +125,20 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(1px);
 }
 
-/* Subtle ML kernel grid pattern */
-.kernel-grid {
-  background-image:
-    linear-gradient(rgba(0,169,191,0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,169,191,0.2) 1px, transparent 1px);
-  background-size: 12px 12px, 12px 12px;
-  background-position: -1px -1px, -1px -1px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  filter: drop-shadow(0 0 10px rgba(0,169,191,0.2));
+/* Kernel grid SVG cells */
+.kernel-grid-svg { color: var(--color-accent); filter: drop-shadow(0 0 10px rgba(0,169,191,0.2)); border-radius: 12px; }
+.kernel-grid-svg .kernel-cell {
+  fill: rgba(0,169,191,0.1);
+  stroke: rgba(0,169,191,0.4);
+  stroke-width: 0.5;
+  animation: gridPulse 2.4s ease-in-out infinite;
+}
+.kernel-grid-svg .kernel-cell:nth-child(odd) { animation-delay: .2s; }
+.kernel-grid-svg .kernel-cell:nth-child(3n) { animation-delay: .4s; }
+
+@keyframes gridPulse {
+  0%, 100% { fill: rgba(0,169,191,0.08); }
+  50% { fill: rgba(0,169,191,0.18); }
 }
 
 /* Tech chips (CFD, CNNs, DRL) */

@@ -20,16 +20,25 @@ export const projects = [
   {
     title: "CUDA-Accelerated Meshfree CFD Solver",
     category: "High-Performance Computing",
-    image: "/meshfree.jpg",
-    description: "Engineered a 3D Euler solver achieving 450× GPU speedup.",
+    image: "/airfoil.png",
+    description: "ML with Fluids.",
     longDescription: "Developed a massively parallel 3D compressible flow solver using CUDA and C++, achieving a 450× performance improvement over CPU implementations. The solver employs meshfree particle methods and advanced parallel algorithms for efficient computational fluid dynamics simulations.",
     techStack: ["CUDA", "C++", "GPU Computing", "CFD"],
     liveUrl: "#"
   },
   {
+    title: "Adaptive Flow Control using RL",
+    category: "AI for Fluids",
+    image: "/meshfree.jpg",
+    description: "Deep RL agents learn closed-loop control for aerodynamic performance.",
+    longDescription: "Designed a DRL framework for active flow control leveraging CNN-based observation encoders and policy-gradient methods. Trained agents in CFD-in-the-loop environments (OpenFOAM/surrogate models) to minimize drag and separation via synthetic jets and morphing surfaces.",
+    techStack: ["Deep RL", "PyTorch", "OpenFOAM", "Python", "CNN"],
+    liveUrl: "#"
+  },
+  {
     title: "Underwater Pitching Airfoil Study",
     category: "Experimental Research",
-    image: "/airfoil.png",
+    image: "/underwater-pitching.jpg",
     description: "Comprehensive experimental study of hydrodynamic forces on oscillating hydrofoils.",
     longDescription: "Developed a custom experimental setup to study hydrodynamic forces on pitching airfoils in underwater conditions. The project involved designing and fabricating a precision pitching mechanism, conducting force measurements, and analyzing flow patterns to understand energy harvesting and propulsion mechanisms.",
     techStack: ["Experimental Design", "LabVIEW", "Data Analysis", "Hydrodynamics"],
@@ -67,7 +76,7 @@ export const experience = [
     date: "Aug 2022 - May 2023",
     company: "BITS Pilani",
     location: "Pilani, India",
-    description: "Engineered a 3D Euler solver from scratch, achieving a 450× speedup on GPU using CUDA and C++. Implemented parallel algorithms for efficient computational fluid dynamics simulations.",
+    description: "Engineered a 3D Euler solver from scratch using CUDA and C++. Implemented parallel algorithms for efficient computational fluid dynamics simulations.",
     technologies: ["CUDA", "C++", "GPU", "CFD"]
   },
   {
@@ -98,13 +107,8 @@ export const experience = [
 
 export const socialLinks = [
   {
-    name: "GitHub",
-    url: "https://github.com/AppliedAero1",
-    icon: "Github"
-  },
-  {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/atharva-mahajan-4b8b3a1b3/",
+    url: "https://www.linkedin.com/in/atharva-mahajan-/",
     icon: "Linkedin"
   },
   {
