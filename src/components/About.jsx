@@ -5,9 +5,9 @@ const About = () => {
   const baseUrl = import.meta.env.BASE_URL
 
   const stats = [
-    { icon: GraduationCap, label: 'Universities', value: '3' },
-    { icon: Award, label: 'Publications', value: '1+' },
-    { icon: Zap, label: 'GPU Speed-up', value: '450×' },
+    { icon: GraduationCap, label: 'International Research Collaborations', value: '4' },
+    { icon: Award, label: 'Publications', value: '1' },
+    { icon: Zap, label: 'Non-dilutive Funding Generated', value: '$12000' },
   ]
 
   return (
