@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-300">
-      <div className="bg-[#0a0a0a]/80 backdrop-blur-xl border-2 border-[#4a9eff] rounded-full px-6 py-3 shadow-xl">
+      <div className="bg-black/20 backdrop-blur-md border border-[#4a9eff]/40 rounded-full px-6 py-3 shadow-lg shadow-[#4a9eff]/10">
         <div className="flex items-center justify-center gap-8">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -51,7 +51,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-[#0a0a0a]/95 backdrop-blur-xl border-2 border-[#4a9eff] rounded-2xl overflow-hidden">
+        <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-black/30 backdrop-blur-md border border-[#4a9eff]/40 rounded-2xl overflow-hidden shadow-lg shadow-[#4a9eff]/10">
           <div className="px-4 py-3 space-y-2">
             {navItems.filter(item => !item.isLogo).map((item) => (
               <a
