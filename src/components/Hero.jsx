@@ -1,42 +1,4 @@
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 border border-border rounded-full text-secondary hover:text-accent hover:border-accent transition-all duration-300 hover:scale-110"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} className="sm:w-6 sm:h-6" />
-            </a>
-            <a
-              href="mailto:atharva@umich.edu"
-              className="p-3 border border-border rounded-full text-secondary hover:text-accent hover:border-accent transition-all duration-300 hover:scale-110"
-              aria-label="Email"
-            >
-              <Mail size={20} className="sm:w-6 sm:h-6" />
-            </a>
-          </div>
-        </div>
-      </div>
 
-      {/* Tech tags */}
-      <div className="absolute right-6 bottom-6 hidden md:flex gap-2 pointer-events-none">
-        <span className="tech-chip">CFD</span>
-        <span className="tech-chip">CNNs</span>
-        <span className="tech-chip">DRL</span>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block">
-        <div className="w-6 h-10 border-2 border-accent/50 rounded-full flex justify-center">
-          <div className="w-1.5 h-3 bg-accent rounded-full mt-2 neon-flicker"></div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-
-
-import React from 'react'
-import { Linkedin, Mail } from 'lucide-react'
 
 const Hero = () => (
   <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#181c2b] via-[#1e2336] to-[#2a314d] text-white">
