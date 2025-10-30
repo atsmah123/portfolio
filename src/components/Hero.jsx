@@ -6,7 +6,7 @@ const Hero = () => {
   const baseUrl = import.meta.env.BASE_URL
 
   return (
-    <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white relative overflow-hidden pt-16">
+    <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white relative overflow-hidden pt-32">
       {/* Animated background gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#4a9eff]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
@@ -53,8 +53,8 @@ const Hero = () => {
         <div className="absolute bottom-1/4 left-10 w-24 h-24 border-2 border-[#4a9eff]/30 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
       </div>
 
-      {/* Top left info card with enhanced styling - positioned to overlap name */}
-      <div className="absolute top-16 left-4 md:top-20 md:left-12 lg:left-24 bg-gradient-to-br from-[#1a1a1a]/90 to-[#151515]/90 border border-[#333333] rounded-xl p-5 md:p-6 max-w-[260px] md:max-w-[300px] z-20 shadow-xl backdrop-blur-sm">
+      {/* Top left info card with enhanced styling - positioned to overlap name with more transparency */}
+      <div className="absolute top-16 left-4 md:top-20 md:left-12 lg:left-24 bg-gradient-to-br from-[#1a1a1a]/70 to-[#151515]/60 border border-[#333333]/60 rounded-xl p-5 md:p-6 max-w-[260px] md:max-w-[300px] z-20 shadow-xl backdrop-blur-md">
         <p className="text-[#999999] text-sm leading-relaxed mb-3">
           MS Mechanical Engineering | CFD,<br />
           Machine Learning, Optimization
