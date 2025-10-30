@@ -1,4 +1,7 @@
 
+import React from 'react'
+import { Linkedin, Mail } from 'lucide-react'
+
 
 const Hero = () => (
   <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#181c2b] via-[#1e2336] to-[#2a314d] text-white">
