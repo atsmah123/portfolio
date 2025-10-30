@@ -6,8 +6,9 @@ import { Linkedin, Mail } from 'lucide-react'
 const Hero = () => (
   <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#181c2b] via-[#1e2336] to-[#2a314d] text-white">
     <div className="relative flex flex-col items-center justify-center w-full">
-      <h1 className="text-[7vw] font-black tracking-tight text-center leading-none mb-0 font-montserrat" style={{letterSpacing: '-0.04em'}}>
-        Atharva Mahajan
+      <h1 className="text-[7vw] sm:text-[6vw] md:text-[5vw] font-black tracking-tight text-center leading-none mb-0 font-montserrat">
+        <span className="block">ATHARVA</span>
+        <span className="block">MAHAJAN</span>
       </h1>
       <div className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2">
         <img
@@ -18,9 +19,9 @@ const Hero = () => (
         />
       </div>
     </div>
-    <div className="mt-32 mb-8 text-center">
-      <span className="text-lg font-manrope text-[#b3c2e6]">
-        Fluid Mechanics × Machine Learning
+    <div className="mt-20 mb-8 text-center">
+      <span className="text-xl sm:text-2xl font-manrope text-[#b3c2e6]">
+        Driving innovation in engineering with advanced numerical methods, AI, and aerodynamic research.
       </span>
     </div>
     <div className="fixed bottom-8 right-8 flex gap-4">
@@ -41,6 +42,23 @@ const Hero = () => (
         <Mail size={24} />
       </a>
     </div>
+    {/* Scroll indicator */}
+    <div className="mt-8 text-center text-gray-300 text-base font-manrope">
+      Scroll
+      <div className="mt-2 animate-bounce">
+        <span className="text-2xl">↓</span>
+      </div>
+    </div>
+    {/* Get in Touch button */}
+    <a
+      href="#contact"
+      className="fixed bottom-16 right-16 bg-[#6bb7cc] text-black font-bold rounded-full w-32 h-32 flex items-center justify-center text-xl shadow-lg hover:bg-[#4fd1c5] transition-all duration-300"
+      style={{ zIndex: 20 }}
+    >
+      Get in Touch
+    </a>
+    {/* Optional: subtle background pattern */}
+    <div className="absolute inset-0 pointer-events-none z-0" style={{background: 'radial-gradient(circle at 80% 20%, #232a3d 0%, transparent 60%)'}}></div>
   </section>
 )
 
