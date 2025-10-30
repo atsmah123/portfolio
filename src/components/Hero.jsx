@@ -1,39 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React from 'react'
 import { Linkedin, Mail, ExternalLink } from 'lucide-react'
 
 const Hero = () => {
-  // Parallax state (mouse-based)
-  const [parallax, setParallax] = useState({ x: 0, y: 0 })
-  const rafRef = useRef(null)
-
-  useEffect(() => {
-    const handleMove = (e) => {
-      const cx = window.innerWidth / 2
-      const cy = window.innerHeight / 2
-      const dx = (e.clientX - cx) / cx // -1 .. 1
-      const dy = (e.clientY - cy) / cy // -1 .. 1
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      rafRef.current = requestAnimationFrame(() => setParallax({ x: dx, y: dy }))
-    }
-    window.addEventListener('mousemove', handleMove, { passive: true })
-    return () => {
-      window.removeEventListener('mousemove', handleMove)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    }
-  }, [])
-
-  // Helpers to compute transform per layer
-  const layer = useMemo(
-    () => (fx = 1, fy = fx) => ({
-      transform: `translate3d(${(parallax.x || 0) * fx}px, ${(parallax.y || 0) * fy}px, 0)`
-    }),
-    [parallax]
-  )
-
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-6">
       {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={layer(10)}>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Streamlines */}
         <div className="absolute w-20 sm:w-32 md:w-36 h-0.5 sm:h-1 md:w-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-30 streamline" style={{ top: '20%', animationDelay: '0s' }}></div>
         <div className="absolute w-20 sm:w-24 md:w-36 h-0.5 sm:h-1 md:w-1 bg-gradient-to-r from-transparent via-accent-secondary to-transparent opacity-30 streamline" style={{ top: '40%', animationDelay: '2s' }}></div>
@@ -41,7 +13,7 @@ const Hero = () => {
         <div className="absolute w-20 sm:w-24 md:w-36 h-0.5 sm:h-1 md:w-1 bg-gradient-to-r from-transparent via-accent-secondary to-transparent opacity-30 streamline" style={{ top: '80%', animationDelay: '6s' }}></div>
 
         {/* Crisp ML kernel grid (SVG) */}
-        <div className="absolute bottom-6 left-6 opacity-20" style={layer(6)} aria-hidden>
+        <div className="absolute bottom-6 left-6 opacity-20" aria-hidden>
           <svg className="kernel-grid-svg" width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="14" height="14" patternUnits="userSpaceOnUse">
@@ -62,7 +34,7 @@ const Hero = () => {
         </div>
 
         {/* Faint Navier–Stokes equations */}
-        <div className="absolute top-8 left-6 text-secondary/30 text-xs sm:text-sm font-mono select-none hidden md:block" style={layer(4)}>
+        <div className="absolute top-8 left-6 text-secondary/30 text-xs sm:text-sm font-mono select-none hidden md:block">
           ∂u/∂t + (u·∇)u = -∇p + ν∇²u + f
           <br />
           ∇·u = 0
@@ -70,7 +42,7 @@ const Hero = () => {
       </div>
 
       {/* Floating airfoil */}
-      <div className="absolute top-1/4 -right-1/4 opacity-5 pointer-events-none" style={layer(20)}>
+      <div className="absolute top-1/4 -right-1/4 opacity-5 pointer-events-none">
         <img
           src="/airfoil.png"
           alt="Airfoil decoration"
@@ -78,21 +50,32 @@ const Hero = () => {
         />
       </div>
 
+      {/* Underwater pitching decoration */}
+      <div className="absolute bottom-1/4 -left-1/4 opacity-10 pointer-events-none">
+        <img
+          src="/underwater-pitching.jpg"
+          alt="Underwater pitching decoration"
+          className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover rounded-2xl float-animation"
+        />
+      </div>
+
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-16 md:py-24 lg:py-32">
         <div className="text-center space-y-8 sm:space-y-12">
-          {/* Name + nested profile orb */}
-          <div className="relative inline-block will-change-transform" style={layer(-10)}>
+          {/* Centered profile photo */}
+          <div className="flex justify-center mb-8">
+            <img
+              src="/profile.jpeg"
+              alt="Atharva Mahajan"
+              className="profile-orb"
+            />
+          </div>
+
+          {/* Name */}
+          <div className="relative inline-block">
             <h1 className="text-6xl sm:text-7xl md:text-9xl lg:text-[160px] font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter leading-[0.85]">
               <span className="block">Atharva</span>
               <span className="block">Mahajan</span>
             </h1>
-            {/* Profile orb positioned between the lines */}
-            <img
-              src="/profile.jpeg"
-              alt="Atharva Mahajan"
-              className="profile-orb absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] will-change-transform"
-              style={layer(-18)}
-            />
           </div>
 
           {/* Title */}
@@ -145,7 +128,7 @@ const Hero = () => {
       </div>
 
       {/* Tech tags */}
-      <div className="absolute right-6 bottom-6 hidden md:flex gap-2 pointer-events-none" style={layer(8)}>
+      <div className="absolute right-6 bottom-6 hidden md:flex gap-2 pointer-events-none">
         <span className="tech-chip">CFD</span>
         <span className="tech-chip">CNNs</span>
         <span className="tech-chip">DRL</span>
