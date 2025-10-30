@@ -3,6 +3,7 @@ import { ExternalLink, X } from 'lucide-react'
 import { projects } from '../data/portfolioData'
 
 const Projects = () => {
+  const baseUrl = import.meta.env.BASE_URL
   const [selectedProject, setSelectedProject] = useState(null)
 
   return (
@@ -27,7 +28,7 @@ const Projects = () => {
               {/* Project Image */}
               <div className="relative h-48 sm:h-56 bg-background overflow-hidden">
                 <img
-                  src={project.image}
+                  src={`${baseUrl}${project.image.replace(/^\//, '')}`}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -93,7 +94,7 @@ const Projects = () => {
             <div className="p-4 sm:p-6 md:p-8">
               <div className="relative rounded-lg overflow-hidden mb-6">
                 <img
-                  src={selectedProject.image}
+                  src={`${baseUrl}${selectedProject.image.replace(/^\//, '')}`}
                   alt={selectedProject.title}
                   className="w-full h-56 sm:h-64 md:h-80 object-cover"
                 />

@@ -38,7 +38,7 @@ export const projects = [
   {
     title: "Underwater Pitching Airfoil Study",
     category: "Experimental Research",
-    image: "/underwater-pitching.jpg",
+    image: "/underwater_pitching.png",
     description: "Comprehensive experimental study of hydrodynamic forces on oscillating hydrofoils.",
     longDescription: "Developed a custom experimental setup to study hydrodynamic forces on pitching airfoils in underwater conditions. The project involved designing and fabricating a precision pitching mechanism, conducting force measurements, and analyzing flow patterns to understand energy harvesting and propulsion mechanisms.",
     techStack: ["Experimental Design", "LabVIEW", "Data Analysis", "Hydrodynamics"],

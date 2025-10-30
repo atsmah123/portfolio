@@ -2,6 +2,8 @@ import React from 'react'
 import { GraduationCap, Award, Zap } from 'lucide-react'
 
 const About = () => {
+  const baseUrl = import.meta.env.BASE_URL
+
   const stats = [
     { icon: GraduationCap, label: 'Universities', value: '3' },
     { icon: Award, label: 'Publications', value: '1+' },
@@ -44,7 +46,7 @@ const About = () => {
             {/* Profile Image */}
             <div className="mt-6 sm:mt-8 md:hidden">
               <img
-                src="/profile.jpeg"
+                src={`${baseUrl}profile.jpeg`}
                 alt="Atharva Mahajan"
                 className="w-full max-w-md mx-auto rounded-lg border-4 sm:border-4 border-accent shadow-2xl"
               />
@@ -55,7 +57,7 @@ const About = () => {
           <div className="space-y-6 sm:space-y-12">
             <div className="hidden md:block">
               <img
-                src="/profile.jpeg"
+                src={`${baseUrl}profile.jpeg`}
                 alt="Atharva Mahajan"
                 className="w-full rounded-lg border-4 border-accent shadow-2xl"
               />
