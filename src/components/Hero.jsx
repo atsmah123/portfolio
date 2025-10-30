@@ -6,7 +6,7 @@ const Hero = () => {
   const baseUrl = import.meta.env.BASE_URL
 
   return (
-    <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white relative overflow-hidden">
+    <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white relative overflow-hidden pt-16">
       {/* Animated background gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#4a9eff]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
@@ -28,6 +28,29 @@ const Hero = () => {
           backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)',
           backgroundSize: '100px 100px'
         }}></div>
+      </div>
+
+      {/* Aerodynamic elements - streamlines and flow visualization */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-20">
+        {/* Horizontal streamlines - simulating airflow */}
+        <div className="absolute top-[30%] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#4a9eff]/30 to-transparent"></div>
+        <div className="absolute top-[35%] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#5eb3c7]/20 to-transparent" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-[40%] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#4a9eff]/25 to-transparent" style={{ animationDelay: '2s' }}></div>
+
+        {/* Airfoil-inspired curved shape on the right */}
+        <div className="absolute top-1/3 right-0 w-96 h-48 opacity-10">
+          <svg viewBox="0 0 400 200" className="w-full h-full">
+            <path d="M 0 100 Q 100 50, 200 80 T 400 100 Q 300 120, 200 110 T 0 100 Z"
+                  fill="none"
+                  stroke="#4a9eff"
+                  strokeWidth="2"
+                  className="opacity-50"/>
+          </svg>
+        </div>
+
+        {/* Vortex/flow particles on the left */}
+        <div className="absolute bottom-1/4 left-10 w-32 h-32 border-2 border-[#5eb3c7]/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute bottom-1/4 left-10 w-24 h-24 border-2 border-[#4a9eff]/30 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
       </div>
 
       {/* Top left info card with enhanced styling - positioned to overlap name */}
@@ -68,7 +91,7 @@ const Hero = () => {
             <img
               src={`${baseUrl}profile.jpeg`}
               alt="Atharva Mahajan"
-              className="relative w-[110px] h-[110px] md:w-[150px] md:h-[150px] lg:w-[170px] lg:h-[170px] rounded-full object-cover border-[5px] border-[#0a0a0a] shadow-2xl ring-2 ring-[#333333]"
+              className="relative w-[90px] h-[90px] md:w-[120px] md:h-[120px] lg:w-[140px] lg:h-[140px] rounded-full object-cover border-[5px] border-[#0a0a0a] shadow-2xl ring-2 ring-[#333333]"
             />
           </div>
         </div>
