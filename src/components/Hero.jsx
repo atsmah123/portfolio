@@ -1,64 +1,70 @@
 
 import React from 'react'
-import { Linkedin, Mail } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
 
 const Hero = () => (
-  <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#181c2b] via-[#1e2336] to-[#2a314d] text-white">
-    <div className="relative flex flex-col items-center justify-center w-full">
-      <h1 className="text-[7vw] sm:text-[6vw] md:text-[5vw] font-black tracking-tight text-center leading-none mb-0 font-montserrat">
+  <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white relative overflow-hidden">
+    {/* Top left info card */}
+    <div className="absolute top-24 left-8 md:left-16 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 max-w-sm z-10">
+      <p className="text-[#999999] text-sm leading-relaxed mb-3">
+        MS Mechanical Engineering | CFD,<br />
+        Machine Learning, Optimization
+      </p>
+      <a
+        href="https://umich.edu"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#4a9eff] text-sm font-medium flex items-center gap-1 hover:text-[#6bb0ff] transition-colors"
+      >
+        University of Michigan <ExternalLink size={14} />
+      </a>
+    </div>
+
+    {/* Main name section with nested profile */}
+    <div className="relative flex flex-col items-center justify-center w-full px-4">
+      <h1 className="text-[12vw] sm:text-[10vw] md:text-[9vw] lg:text-[8vw] font-black tracking-tighter text-center leading-[0.85] mb-0 font-montserrat text-white">
         <span className="block">ATHARVA</span>
         <span className="block">MAHAJAN</span>
       </h1>
-      <div className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <img
           src="/profile.jpeg"
           alt="Atharva Mahajan"
-          className="profile-orb border-4 border-[#4fd1c5] shadow-2xl"
-          style={{ width: '110px', height: '110px', objectFit: 'cover', borderRadius: '50%' }}
+          className="w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full object-cover border-4 border-[#0a0a0a] shadow-2xl"
         />
       </div>
     </div>
-    <div className="mt-20 mb-8 text-center">
-      <span className="text-xl sm:text-2xl font-manrope text-[#b3c2e6]">
-        Driving innovation in engineering with advanced numerical methods, AI, and aerodynamic research.
-      </span>
+
+    {/* Tagline */}
+    <div className="mt-24 md:mt-32 mb-8 text-center px-4 max-w-3xl">
+      <p className="text-base md:text-lg font-manrope text-[#999999] leading-relaxed">
+        Driving innovation in engineering with advanced numerical<br className="hidden sm:block" />
+        methods, AI, and aerodynamic research.
+      </p>
     </div>
-    <div className="fixed bottom-8 right-8 flex gap-4">
-      <a
-        href="https://www.linkedin.com/in/atharva-mahajan-/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-3 bg-[#232a3d] rounded-full text-[#b3c2e6] hover:text-[#4fd1c5] hover:bg-[#181c2b] transition-all duration-300 shadow-lg"
-        aria-label="LinkedIn"
-      >
-        <Linkedin size={24} />
-      </a>
-      <a
-        href="mailto:atharvm@umich.edu"
-        className="p-3 bg-[#232a3d] rounded-full text-[#b3c2e6] hover:text-[#4fd1c5] hover:bg-[#181c2b] transition-all duration-300 shadow-lg"
-        aria-label="Email"
-      >
-        <Mail size={24} />
-      </a>
-    </div>
+
     {/* Scroll indicator */}
-    <div className="mt-8 text-center text-gray-300 text-base font-manrope">
+    <div className="mt-12 text-center text-[#666666] text-sm font-manrope">
       Scroll
       <div className="mt-2 animate-bounce">
-        <span className="text-2xl">↓</span>
+        <svg className="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
       </div>
     </div>
+
     {/* Get in Touch button */}
     <a
       href="#contact"
-      className="fixed bottom-16 right-16 bg-[#6bb7cc] text-black font-bold rounded-full w-32 h-32 flex items-center justify-center text-xl shadow-lg hover:bg-[#4fd1c5] transition-all duration-300"
+      className="fixed bottom-8 right-8 md:bottom-12 md:right-12 bg-[#5eb3c7] text-black font-bold rounded-full w-36 h-36 md:w-40 md:h-40 flex items-center justify-center text-lg shadow-2xl hover:bg-[#6fc4d8] transition-all duration-300"
       style={{ zIndex: 20 }}
     >
       Get in Touch
     </a>
-    {/* Optional: subtle background pattern */}
-    <div className="absolute inset-0 pointer-events-none z-0" style={{background: 'radial-gradient(circle at 80% 20%, #232a3d 0%, transparent 60%)'}}></div>
+
+    {/* Subtle background gradient */}
+    <div className="absolute inset-0 pointer-events-none z-0" style={{background: 'radial-gradient(circle at 70% 30%, rgba(35, 42, 61, 0.15) 0%, transparent 50%)'}}></div>
   </section>
 )
 

@@ -68,12 +68,34 @@ portfolio-source/
 
 ## Deployment
 
-The site is deployed on Netlify. To deploy:
+The site is deployed on GitHub Pages with automatic deployment via GitHub Actions.
+
+### Initial Setup
+
+1. Go to your GitHub repository settings
+2. Navigate to **Settings** > **Pages**
+3. Under **Source**, select **GitHub Actions**
+
+### Automatic Deployment
+
+The site automatically deploys when you push to the `main` branch. The GitHub Actions workflow will:
+1. Build the project
+2. Deploy to GitHub Pages
+
+### Manual Deployment
+
+To manually trigger a deployment:
+1. Go to the **Actions** tab in your GitHub repository
+2. Select the "Deploy to GitHub Pages" workflow
+3. Click "Run workflow"
+
+### Local Build
 
 ```bash
-npm run build
-# Upload the 'dist' folder to Netlify
+npm run deploy
 ```
+
+The site will be available at: `https://atsmah123.github.io/portfolio/`
 
 ## License
 
