@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, Linkedin, Github } from 'lucide-react'
+import { Mail, Linkedin } from 'lucide-react'
 
 const Contact = () => {
   return (
@@ -21,7 +21,7 @@ const Contact = () => {
           </p>
 
           {/* Contact Methods */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
             <a
               href="mailto:atharva@umich.edu"
               className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
@@ -45,18 +45,20 @@ const Contact = () => {
                 <p className="text-sm sm:text-base text-primary font-medium">Connect with me</p>
               </div>
             </a>
-            <a
-              href="https://github.com/AppliedAero1"
+
+            {/* GitHub section - commented out for now */}
+            {/* <a
+              href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group sm:col-span-2 md:col-span-1"
+              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
             >
               <Github className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
               <div>
                 <p className="text-xs text-secondary uppercase tracking-wider mb-1">GitHub</p>
                 <p className="text-sm sm:text-base text-primary font-medium">View my code</p>
               </div>
-            </a>
+            </a> */}
           </div>
 
           {/* CTA Button */}
