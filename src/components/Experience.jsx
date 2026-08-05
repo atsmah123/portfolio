@@ -20,7 +20,7 @@ const Experience = () => {
         <div className="relative">
           <div
             aria-hidden
-            className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-accent/50 via-border to-transparent"
+            className="absolute bottom-2 left-[7px] top-2 w-0.5 rounded-full bg-gradient-to-b from-accent via-accent/35 to-transparent"
           />
 
           <div className="space-y-6">

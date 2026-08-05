@@ -58,9 +58,11 @@ const Navbar = () => {
 
       <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6">
         <nav
-          className={`glass w-full max-w-3xl rounded-full transition-all duration-300 ${
-            scrolled ? 'shadow-lg shadow-black/40' : ''
-          }`}
+          className={`glass w-full max-w-3xl overflow-hidden transition-all duration-300 ${
+            /* Pill shape when collapsed; rounded panel once the mobile menu
+               expands, otherwise the container renders as a circle. */
+            isOpen ? 'rounded-3xl bg-[#0d1015]/95' : 'rounded-full'
+          } ${scrolled ? 'shadow-lg shadow-black/40' : ''}`}
           aria-label="Main navigation"
         >
           <div className="flex items-center justify-between gap-4 px-4 py-2.5 sm:px-5">

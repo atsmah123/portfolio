@@ -71,9 +71,12 @@ const Projects = () => {
                     src={project.image}
                     alt={project.title}
                     ratio={project.featured ? '16 / 9' : '16 / 10'}
-                    imgClassName="transition-transform duration-700 group-hover:scale-105"
+                    /* Many of these are white-background scientific figures.
+                       Dimming them on the card keeps the dark theme intact;
+                       they return to full brightness on hover and in the modal. */
+                    imgClassName="brightness-[.72] saturate-[.9] transition-all duration-700 group-hover:scale-105 group-hover:brightness-90"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/45 to-card/10" />
 
                   <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-accent backdrop-blur-sm ring-1 ring-white/10">
                     {project.category}

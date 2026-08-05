@@ -65,9 +65,9 @@ const Hero = () => {
         </svg>
 
         {/* Vortex rings */}
-        <div className="absolute bottom-24 left-8 hidden lg:block">
-          <div className="h-36 w-36 animate-spin-slow rounded-full border border-accent-secondary/20" />
-          <div className="absolute inset-5 animate-spin-slower rounded-full border border-accent/25" />
+        <div className="absolute bottom-28 left-16 hidden xl:block">
+          <div className="h-32 w-32 animate-spin-slow rounded-full border border-accent-secondary/15" />
+          <div className="absolute inset-5 animate-spin-slower rounded-full border border-accent/20" />
         </div>
       </div>
 
