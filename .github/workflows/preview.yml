@@ -1,0 +1,63 @@
+# Builds a PREVIEW of any non-main branch and publishes it to the
+# `gh-pages-preview` branch, so you can review changes on a real URL
+# without touching the live site.
+#
+# Preview URL:  https://atsmah123.github.io/portfolio-preview/
+#
+# ONE-TIME SETUP (only needed the first time this runs):
+#   1. Let this workflow run once — it creates the `gh-pages-preview` branch.
+#   2. On GitHub: create a repo named `portfolio-preview`, OR serve it from
+#      this repo by going to Settings → Pages and picking the
+#      `gh-pages-preview` branch as the source.
+#   See README.md → "Previewing changes before they go live".
+name: Preview Build
+
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The preview lives at a different path than the live site, so the
+      # bundler needs a matching base URL or assets 404.
+      - name: Build (preview base path)
+        run: npm run build -- --base=/portfolio-preview/
+
+      - name: Publish preview
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages-preview
+          force_orphan: true
+          commit_message: "Preview build from ${{ github.ref_name }}"
+
+      - name: Summary
+        run: |
+          echo "### Preview built from \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Published to the \`gh-pages-preview\` branch." >> $GITHUB_STEP_SUMMARY
+          echo "See README.md for first-time setup of the preview URL." >> $GITHUB_STEP_SUMMARY

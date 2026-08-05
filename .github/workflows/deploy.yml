@@ -1,3 +1,5 @@
+# Deploys the LIVE site from `main` to GitHub Pages.
+# Preview builds for other branches are handled by preview.yml.
 name: Deploy to GitHub Pages
 
 on:
@@ -25,7 +27,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
