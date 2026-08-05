@@ -18,15 +18,26 @@
 // -----------------------------------------------------------------------------
 export const projects = [
   {
-    title: 'Upstream History and Local Disequilibration in APG TBLs',
-    category: 'Academic Research',
-    image: 'images/projects/turb.png',
+    title: 'Adaptive Flow Control with Explainable RL',
+    category: 'AI4Science · Deep RL',
+    image: 'images/projects/meshfree.jpg',
     featured: true,
+    description:
+      'Deep RL control policies for physical systems, made interpretable with SHAP-based explainability.',
+    longDescription:
+      'Developing an adaptive flow control framework where ML-based control policies are analyzed and refined using SHAP-based explainability techniques. The setup combines CFD and surrogate models with learned controllers, using XAI tools to understand feature importance and guide improvements in actuation strategies — turning a black-box policy into something a scientist can reason about.',
+    techStack: ['Deep RL', 'SHAP', 'XAI', 'Python', 'PyTorch'],
+    liveUrl: '',
+  },
+  {
+    title: 'Upstream History and Local Disequilibration in APG TBLs',
+    category: 'Published Research',
+    image: 'images/projects/turb.png',
     description:
       'Peer-reviewed study on turbulence behaviour in adverse pressure gradient boundary layers.',
     longDescription:
       'This work at KTH Royal Institute of Technology examined how upstream pressure gradients influence Reynolds stresses in turbulent boundary layers. Using Direct Numerical Simulation data, the study analyzed turbulence structures and transport mechanisms, leading to a publication in the International Journal of Heat and Fluid Flow.',
-    techStack: ['DNS', 'MATLAB', 'Fluid Dynamics', 'Data Analysis'],
+    techStack: ['DNS', 'MATLAB', 'Data Analysis', 'HPC'],
     liveUrl: 'https://www.sciencedirect.com/science/article/pii/S0142727X25002620',
     linkLabel: 'View Publication',
   },
@@ -35,7 +46,7 @@ export const projects = [
     category: 'High-Performance Computing',
     image: 'images/projects/airfoil.png',
     description:
-      'CUDA-parallelized meshfree flow solver with significant speedup over CPU baselines.',
+      'GPU-parallelized meshfree flow solver with significant speedup over CPU baselines.',
     longDescription:
       'Developed a 3D compressible flow solver using CUDA and Fortran with a meshfree particle formulation. The implementation focused on exploiting GPU parallelism to improve runtime performance relative to CPU-based versions for representative CFD test cases.',
     techStack: ['CUDA', 'Fortran', 'GPU Computing', 'CFD'],
@@ -53,16 +64,6 @@ export const projects = [
     liveUrl: '',
   },
   {
-    title: 'Adaptive Flow Control Optimized through XAI',
-    category: 'AI for Fluids',
-    image: 'images/projects/meshfree.jpg',
-    description: 'Using explainable AI to analyze and improve flow control strategies.',
-    longDescription:
-      'Developing an adaptive flow control framework where control policies are analyzed and refined using SHAP-based explainability techniques. The setup combines CFD or surrogate models with ML-based controllers, using XAI tools to understand feature importance and guide improvements in actuation strategies.',
-    techStack: ['XAI', 'SHAP', 'Python', 'CFD', 'ML'],
-    liveUrl: '',
-  },
-  {
     title: 'Underwater Pitching Airfoil Study',
     category: 'Experimental Research',
     image: 'images/projects/underwater_pitching.png',
@@ -75,15 +76,19 @@ export const projects = [
 ]
 
 // -----------------------------------------------------------------------------
-// EXPERIENCE — rendered as a vertical timeline, newest first.
-//   current: true → shows a pulsing "Present" indicator.
+// EXPERIENCE — grouped on the page by `org`, newest group first.
+//   Roles sharing an `org` value are collapsed into one expandable chapter,
+//   so three BITS roles read as one chapter rather than three separate items.
+//   org      → the heading text for the group (must match exactly to group)
+//   orgMeta  → small label beside the org name (city, country)
+//   current  → adds a "Current" badge and a pulsing dot
 // -----------------------------------------------------------------------------
 export const experience = [
   {
     role: 'Adaptive Flow Control optimized through XAI',
     date: 'Aug 2025 — Present',
-    company: 'University of Michigan',
-    location: 'Ann Arbor, MI',
+    org: 'University of Michigan',
+    orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
       'Working on adaptive flow control strategies supported by SHAP-based explainable AI analysis to interpret and improve ML-driven control decisions.',
@@ -92,8 +97,8 @@ export const experience = [
   {
     role: 'Research & Teaching Assistant — ML/AI for Fluid Mechanics',
     date: 'Aug 2024 — Present',
-    company: 'University of Michigan',
-    location: 'Ann Arbor, MI',
+    org: 'University of Michigan',
+    orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
       'Supporting graduate-level teaching on AI methods in fluid mechanics and helping develop interactive material for turbulence modeling and CFD topics.',
@@ -102,8 +107,8 @@ export const experience = [
   {
     role: 'Effects of Upstream Pressure History on Reynolds Stresses',
     date: 'Jan 2024 — May 2025',
-    company: 'KTH Royal Institute of Technology',
-    location: 'Stockholm, Sweden',
+    org: 'KTH Royal Institute of Technology',
+    orgMeta: 'Stockholm, Sweden',
     description:
       'Analyzed DNS datasets to study turbulence structures in adverse pressure gradient boundary layers, leading to a publication in the International Journal of Heat and Fluid Flow.',
     technologies: ['DNS', 'MATLAB', 'Python', 'HPC'],
@@ -111,8 +116,8 @@ export const experience = [
   {
     role: 'Co-founder, Applied Aero Labs',
     date: 'Jan 2023 — May 2025',
-    company: 'Applied Aero Labs',
-    location: 'India',
+    org: 'Applied Aero Labs',
+    orgMeta: 'India',
     description:
       'Contributed to the design and development of a portable fan-array wind tunnel and helped secure around $12,000 in government funding to support development and early commercialization.',
     technologies: ['SolidWorks', 'Arduino', 'Product Design', 'Entrepreneurship'],
@@ -120,8 +125,8 @@ export const experience = [
   {
     role: 'Computational Analysis of Autophoretic Particles',
     date: 'May 2023 — May 2024',
-    company: 'BITS Pilani',
-    location: 'Pilani, India',
+    org: 'BITS Pilani',
+    orgMeta: 'Pilani, India',
     description:
       'Performed numerical simulations of self-propelling microparticles near fluid interfaces to study flow behaviour in microfluidic settings.',
     technologies: ['OpenFOAM', 'Python', 'CFD', 'Microfluidics'],
@@ -129,8 +134,8 @@ export const experience = [
   {
     role: 'CUDA-Accelerated Meshfree CFD Solver',
     date: 'Aug 2022 — May 2023',
-    company: 'BITS Pilani',
-    location: 'Pilani, India',
+    org: 'BITS Pilani',
+    orgMeta: 'Pilani, India',
     description:
       'Implemented a 3D Euler solver using CUDA and Fortran with meshfree methods, focusing on parallel algorithms for CFD simulations.',
     technologies: ['CUDA', 'Fortran', 'GPU', 'CFD'],
@@ -138,8 +143,8 @@ export const experience = [
   {
     role: 'Hydrodynamic Study of Underwater Pitching Airfoil',
     date: 'Feb 2021 — Dec 2023',
-    company: 'BITS Pilani',
-    location: 'Pilani, India',
+    org: 'BITS Pilani',
+    orgMeta: 'Pilani, India',
     description:
       'Designed and used an underwater pitching airfoil rig to study hydrodynamic forces and flow patterns relevant to propulsion and energy-harvesting problems.',
     technologies: ['Experimental Design', 'LabVIEW', 'Data Analysis', 'Hydrodynamics'],

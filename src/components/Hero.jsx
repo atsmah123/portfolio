@@ -1,7 +1,10 @@
 import React from 'react'
-import { ExternalLink, ArrowDown, Mail, FileText } from 'lucide-react'
+import { ArrowDown, Mail, FileText, BrainCircuit, Bot, ScanSearch, Cpu } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { profile } from '../data/siteContent'
+import { profile, coreSkills } from '../data/siteContent'
+
+/** Icons usable by `coreSkills` in siteContent.js. Add new ones here. */
+const skillIcons = { BrainCircuit, Bot, ScanSearch, Cpu }
 
 const Hero = () => {
   const baseUrl = import.meta.env.BASE_URL
@@ -11,167 +14,151 @@ const Hero = () => {
     reduceMotion
       ? {}
       : {
-          initial: { opacity: 0, y: 26 },
+          initial: { opacity: 0, y: 24 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
         }
 
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 pb-16 pt-32 sm:pt-36"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 pb-14 pt-28 sm:pt-32"
     >
-      {/* ---------- Decorative background ---------- */}
+      {/* Background: a soft gradient wash only. The CFD-era streamlines,
+          vortex rings and grid were removed — nothing competes with content. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {/* Soft colour blooms */}
-        <div className="absolute -left-24 top-10 h-[34rem] w-[34rem] rounded-full bg-accent/[0.07] blur-[110px]" />
-        <div className="absolute -right-20 bottom-0 h-[32rem] w-[32rem] rounded-full bg-accent-secondary/[0.06] blur-[110px]" />
-
-        {/* Grid */}
-        <div
-          className="absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(148,163,184,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,.5) 1px, transparent 1px)',
-            backgroundSize: '76px 76px',
-            maskImage: 'radial-gradient(ellipse 75% 55% at 50% 45%, #000 40%, transparent 100%)',
-            WebkitMaskImage:
-              'radial-gradient(ellipse 75% 55% at 50% 45%, #000 40%, transparent 100%)',
-          }}
-        />
-
-        {/* Streamlines — a nod to the CFD work */}
-        <svg
-          className="absolute inset-0 h-full w-full opacity-[0.16]"
-          preserveAspectRatio="none"
-          viewBox="0 0 1200 800"
-        >
-          {[210, 268, 326, 384].map((y, i) => (
-            <path
-              key={y}
-              d={`M -50 ${y} C 300 ${y - 34 - i * 5}, 640 ${y + 30 + i * 5}, 1250 ${y - 12}`}
-              fill="none"
-              stroke="url(#streamGradient)"
-              strokeWidth="1.2"
-            />
-          ))}
-          <defs>
-            <linearGradient id="streamGradient" x1="0" x2="1">
-              <stop offset="0%" stopColor="transparent" />
-              <stop offset="45%" stopColor="#4a9eff" />
-              <stop offset="100%" stopColor="transparent" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Vortex rings */}
-        <div className="absolute bottom-28 left-16 hidden xl:block">
-          <div className="h-32 w-32 animate-spin-slow rounded-full border border-accent-secondary/15" />
-          <div className="absolute inset-5 animate-spin-slower rounded-full border border-accent/20" />
-        </div>
+        <div className="absolute -left-32 top-0 h-[38rem] w-[38rem] rounded-full bg-accent/[0.08] blur-[130px]" />
+        <div className="absolute -right-28 bottom-0 h-[34rem] w-[34rem] rounded-full bg-accent-secondary/[0.07] blur-[130px]" />
       </div>
 
-      {/* ---------- Institution card ---------- */}
-      <motion.div
-        {...rise(0)}
-        className="glass absolute left-4 top-24 hidden max-w-[248px] rounded-2xl p-4 lg:block lg:left-10 xl:left-16"
+      {/* ---------- Positioning kicker ---------- */}
+      <motion.div {...rise(0)} className="relative z-10 mb-5">
+        <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/[0.07] px-4 py-1.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-accent" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+          <span className="font-manrope text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
+            {profile.kicker}
+          </span>
+        </span>
+      </motion.div>
+
+      {/* ---------- Name with the portrait overlapping the seam ----------
+           The photo is sized in `em`, so it scales with the type and the
+           overlap ratio stays identical from 390px to 1440px. Negative
+           margins pull the two lines together so the portrait genuinely
+           straddles them rather than sitting in a gap. ---------- */}
+      <motion.h1
+        {...rise(0.08)}
+        className="relative z-10 w-full text-center font-montserrat font-black leading-[0.78] tracking-[-0.045em] text-primary"
+        style={{ fontSize: 'clamp(2.9rem, 12.5vw, 9rem)' }}
       >
-        <p className="font-manrope text-[13px] leading-relaxed text-secondary">
-          {profile.tagline}
-        </p>
+        <span className="block">{profile.firstName}</span>
+
+        {/* Portrait layer — overlaps the line above and the line below.
+            Sized with a vw floor so the face stays readable on phones, where
+            a purely em-based size would shrink it to an unrecognisable dot. */}
+        <span
+          className="relative z-20 mx-auto block"
+          style={{
+            /* One size expression, reused for the margins, so the photo and
+               its overlap always scale together — the overlap stays a fixed
+               ~27% of the photo at every viewport width. */
+            '--photo': 'max(0.62em, 76px)',
+            width: 'var(--photo)',
+            height: 'var(--photo)',
+            marginTop: 'calc(var(--photo) * -0.275)',
+            marginBottom: 'calc(var(--photo) * -0.275)',
+          }}
+        >
+          {/* Dark halo carves the photo out of the letters behind it */}
+          <span
+            aria-hidden
+            className="absolute -inset-[0.1em] rounded-full bg-background/85 blur-[6px]"
+          />
+          <span
+            aria-hidden
+            className="absolute -inset-[0.045em] rounded-full bg-gradient-to-br from-accent/45 to-accent-secondary/30 blur-md"
+          />
+          <img
+            src={`${baseUrl}${profile.photo}`}
+            alt={`${profile.firstName} ${profile.lastName}`}
+            className="relative h-full w-full rounded-full object-cover shadow-2xl ring-[0.035em] ring-white/25"
+          />
+        </span>
+
+        <span className="block bg-gradient-to-r from-primary via-accent to-accent-secondary bg-clip-text text-transparent">
+          {profile.lastName}
+        </span>
+      </motion.h1>
+
+      {/* ---------- Tagline ---------- */}
+      <motion.p
+        {...rise(0.22)}
+        className="relative z-10 mt-7 max-w-2xl text-balance text-center font-manrope text-[15px] leading-relaxed text-secondary sm:text-lg"
+      >
+        {profile.intro}
+      </motion.p>
+
+      {/* ---------- Core skills: a recruiter's first read ---------- */}
+      <motion.div
+        {...rise(0.32)}
+        className="relative z-10 mt-9 grid w-full max-w-4xl grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4"
+      >
+        {coreSkills.map((group) => {
+          const Icon = skillIcons[group.icon] || BrainCircuit
+          return (
+            <div
+              key={group.area}
+              className="glass rounded-xl p-3.5 text-left transition-colors duration-300 hover:border-accent/40"
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <Icon size={15} className="shrink-0 text-accent" strokeWidth={1.9} />
+                <h2 className="font-manrope text-[11px] font-bold uppercase leading-tight tracking-wider text-primary">
+                  {group.area}
+                </h2>
+              </div>
+              <p className="font-manrope text-[11px] leading-relaxed text-secondary">
+                {group.items.join(' · ')}
+              </p>
+            </div>
+          )
+        })}
+      </motion.div>
+
+      {/* ---------- Calls to action ---------- */}
+      <motion.div
+        {...rise(0.42)}
+        className="relative z-10 mt-9 flex flex-wrap items-center justify-center gap-3"
+      >
+        <a href="#projects" className="btn-primary">
+          View My Work
+        </a>
         <a
-          href={profile.institution.url}
+          href={`${baseUrl}${profile.resume}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mt-2.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent transition-colors hover:text-accent-secondary"
+          className="btn-ghost"
         >
-          {profile.institution.name}
-          <ExternalLink
-            size={13}
-            className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          />
+          <FileText size={16} />
+          Download CV
+        </a>
+        <a href="#contact" className="btn-ghost">
+          <Mail size={16} />
+          Get in Touch
         </a>
       </motion.div>
 
-      {/* ---------- Name + portrait ----------
-           The portrait sits in normal flow between the two name lines, so it
-           can never overlap the text at any viewport width. ---------- */}
-      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center">
-        <motion.h1
-          {...rise(0.08)}
-          className="w-full text-center font-montserrat font-black leading-[0.86] tracking-[-0.045em] text-primary"
-          style={{ fontSize: 'clamp(2.75rem, 13vw, 9.5rem)' }}
-        >
-          <span className="block">{profile.firstName}</span>
-
-          {/* Portrait nested between the names */}
-          <motion.span
-            {...rise(0.18)}
-            className="my-2 flex items-center justify-center gap-4 sm:my-3 sm:gap-6"
-          >
-            <span
-              aria-hidden
-              className="h-px flex-1 bg-gradient-to-r from-transparent to-accent/35"
-            />
-            <span className="relative shrink-0">
-              <span className="absolute -inset-2 rounded-full bg-gradient-to-br from-accent/35 to-accent-secondary/25 blur-lg" />
-              <img
-                src={`${baseUrl}${profile.photo}`}
-                alt={`${profile.firstName} ${profile.lastName}`}
-                width="132"
-                height="132"
-                className="relative block h-[62px] w-[62px] rounded-full object-cover ring-1 ring-white/15 sm:h-[86px] sm:w-[86px] md:h-[108px] md:w-[108px] lg:h-[132px] lg:w-[132px]"
-              />
-            </span>
-            <span
-              aria-hidden
-              className="h-px flex-1 bg-gradient-to-l from-transparent to-accent-secondary/35"
-            />
-          </motion.span>
-
-          <span className="block bg-gradient-to-r from-primary via-accent to-accent-secondary bg-clip-text text-transparent">
-            {profile.lastName}
-          </span>
-        </motion.h1>
-
-        {/* Tagline */}
-        <motion.p
-          {...rise(0.28)}
-          className="mt-8 max-w-2xl text-balance text-center font-manrope text-base leading-relaxed text-secondary sm:text-lg"
-        >
-          {profile.intro}
-        </motion.p>
-
-        {/* Calls to action */}
-        <motion.div {...rise(0.36)} className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <a href="#projects" className="btn-primary">
-            View My Work
-          </a>
-          <a
-            href={`${baseUrl}${profile.resume}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost"
-          >
-            <FileText size={16} />
-            Download CV
-          </a>
-          <a href="#contact" className="btn-ghost">
-            <Mail size={16} />
-            Get in Touch
-          </a>
-        </motion.div>
-      </div>
-
       {/* ---------- Scroll cue ---------- */}
       <motion.a
-        {...rise(0.5)}
+        {...rise(0.55)}
         href="#about"
-        className="group mt-16 flex flex-col items-center gap-2 text-muted transition-colors hover:text-accent"
+        className="relative z-10 mt-12 flex flex-col items-center gap-1.5 text-muted transition-colors hover:text-accent"
         aria-label="Scroll to About section"
       >
-        <span className="font-manrope text-[11px] uppercase tracking-[0.3em]">Scroll</span>
-        <ArrowDown size={16} className="animate-bounce" />
+        <span className="font-manrope text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+        <ArrowDown size={15} className="animate-bounce" />
       </motion.a>
     </section>
   )

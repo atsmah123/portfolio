@@ -14,9 +14,13 @@ export const profile = {
   firstName: 'ATHARVA',
   lastName: 'MAHAJAN',
   initials: 'AM',
-  tagline: 'MS Mechanical Engineering | CFD, Machine Learning, Optimization',
+
+  // Sits above the name in the hero — your one-line positioning.
+  kicker: 'AI4Science',
+
+  tagline: 'MS Mechanical Engineering | Applied ML, GenAI & DRL for Science',
   intro:
-    'Driving innovation in engineering with advanced numerical methods, AI, and aerodynamic research.',
+    'Applying generative models and deep reinforcement learning to scientific discovery — building ML systems that learn, control and explain complex physical processes.',
   institution: {
     name: 'University of Michigan',
     url: 'https://umich.edu',
@@ -26,6 +30,34 @@ export const profile = {
   photo: 'images/profile.jpeg',
   resume: 'atharva_mahajan_cv.pdf',
 }
+
+// -----------------------------------------------------------------------------
+// CORE SKILLS — shown right on the landing page so a recruiter sees your
+// stack without scrolling. Keep this to 3-4 groups of 4-5 items; more than
+// that and it stops being scannable.
+// -----------------------------------------------------------------------------
+export const coreSkills = [
+  {
+    icon: 'BrainCircuit',
+    area: 'Applied ML & GenAI',
+    items: ['PyTorch', 'TensorFlow', 'Diffusion Models', 'Transformers', 'SciML'],
+  },
+  {
+    icon: 'Bot',
+    area: 'Deep RL & Control',
+    items: ['Deep RL', 'Policy Optimization', 'Adaptive Control', 'Gymnasium'],
+  },
+  {
+    icon: 'ScanSearch',
+    area: 'Explainability',
+    items: ['SHAP', 'Feature Attribution', 'Surrogate Models', 'XAI'],
+  },
+  {
+    icon: 'Cpu',
+    area: 'Scientific Computing',
+    items: ['Python', 'CUDA', 'HPC', 'CFD', 'Fortran'],
+  },
+]
 
 // -----------------------------------------------------------------------------
 // Navigation. `id` must match the id="" on the matching <section>.
@@ -46,8 +78,9 @@ export const navLinks = [
 export const about = {
   heading: 'About',
   paragraphs: [
-    "I'm a graduate student at the **University of Michigan**, specializing in computational fluid dynamics, machine learning, and optimization.",
-    'My research sits at the intersection of AI and engineering — with published work in **turbulent boundary layers** and hands-on experience building **CUDA-accelerated** solvers.',
+    "I'm a graduate researcher at the **University of Michigan** working on **AI for Science** — applying generative models and deep reinforcement learning to problems in physics and engineering.",
+    'My current work builds **DRL-based control policies** for complex physical systems and uses **explainable AI** to understand *why* those policies work — turning black-box controllers into something a scientist can reason about.',
+    'That sits on a deep computational foundation: published research in **turbulent boundary layers**, **CUDA-accelerated** solvers, and large-scale simulation on HPC systems. I know the physics my models are learning.',
     'As co-founder of **Applied Aero Labs**, I took a hardware product from concept to funded prototype, pairing technical depth with an entrepreneurial streak.',
   ],
   // `value` is the number counted up to; `suffix`/`prefix` wrap it.
@@ -64,11 +97,12 @@ export const about = {
 export const sections = {
   experience: {
     heading: 'Experience',
-    subheading: 'Research, teaching and building — from Stockholm to Ann Arbor.',
+    subheading:
+      'Research, teaching and building — from Stockholm to Ann Arbor. Select an institution to expand.',
   },
   projects: {
     heading: 'Projects',
-    subheading: 'Selected work across simulation, hardware and machine learning.',
+    subheading: 'Machine learning for scientific discovery, backed by simulation and hardware.',
   },
   publications: {
     heading: 'Publications',

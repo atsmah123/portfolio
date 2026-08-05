@@ -132,13 +132,44 @@ the top.
 {
   role: 'Research Assistant',
   date: 'Jan 2026 — Present',
-  company: 'University of Michigan',
-  location: 'Ann Arbor, MI',
-  current: true,          // adds a "Current" badge + pulsing timeline dot
+  org: 'University of Michigan',   // groups roles — see below
+  orgMeta: 'Ann Arbor, MI',
+  current: true,          // adds a "Current" badge + pulsing timeline node
   description: 'What you worked on.',
-  technologies: ['Python', 'CFD'],
+  technologies: ['Python', 'PyTorch'],
 },
 ```
+
+**How grouping works:** roles that sit next to each other in the array and
+share the **exact same `org` string** collapse into one expandable chapter.
+That's why your three BITS Pilani roles show as a single "BITS Pilani"
+card with a "3" badge rather than three separate entries.
+
+- To add a role to an existing institution, give it the same `org` and
+  place it beside the others in the array.
+- To start a new chapter, use a new `org` value.
+- Groups containing a `current: true` role are expanded by default;
+  the rest start collapsed.
+
+### Edit the landing-page skills
+
+The four skill cards on the hero come from `coreSkills` in
+**`src/data/siteContent.js`**:
+
+```js
+{
+  icon: 'BrainCircuit',        // see the icon list below
+  area: 'Applied ML & GenAI',
+  items: ['PyTorch', 'Diffusion Models', 'Transformers'],
+},
+```
+
+Available icons: `BrainCircuit`, `Bot`, `ScanSearch`, `Cpu`. To use a
+different one, import it at the top of `src/components/Hero.jsx` and add it
+to the `skillIcons` map there.
+
+Keep this to **3–4 groups of 4–5 items** — it exists so a recruiter can read
+your stack in a couple of seconds, and more entries defeat that.
 
 ### Add a publication
 
