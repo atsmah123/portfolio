@@ -1,144 +1,201 @@
-import React, { useState } from 'react'
-import { ExternalLink, X } from 'lucide-react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { ExternalLink, X, ArrowUpRight } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { projects } from '../data/portfolioData'
+import { sections } from '../data/siteContent'
+import SectionHeading from './ui/SectionHeading'
+import SmartImage from './ui/SmartImage'
+import { RevealGroup, RevealItem } from './ui/Reveal'
 
 const Projects = () => {
-  const baseUrl = import.meta.env.BASE_URL
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [selected, setSelected] = useState(null)
+  const closeButtonRef = useRef(null)
+  const lastFocused = useRef(null)
+
+  const close = useCallback(() => setSelected(null), [])
+
+  const open = (project) => {
+    lastFocused.current = document.activeElement
+    setSelected(project)
+  }
+
+  // Close on Escape, lock body scroll while open, and move focus into the
+  // dialog — then return it to the card that opened it.
+  useEffect(() => {
+    if (!selected) return
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') close()
+    }
+    document.addEventListener('keydown', onKey)
+
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
+    const prevOverflow = document.body.style.overflow
+    const prevPadding = document.body.style.paddingRight
+    document.body.style.overflow = 'hidden'
+    if (scrollBarWidth > 0) document.body.style.paddingRight = `${scrollBarWidth}px`
+
+    closeButtonRef.current?.focus()
+
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+      document.body.style.paddingRight = prevPadding
+      lastFocused.current?.focus?.()
+    }
+  }, [selected, close])
 
   return (
-    <section id="projects" className="py-12 sm:py-16 md:py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        {/* Section Header */}
-        <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter mb-3 sm:mb-4">
-            Projects
-          </h2>
-          <div className="w-20 sm:w-24 h-0.5 bg-accent"></div>
-        </div>
+    <section id="projects" className="section-spacing">
+      <div className="section-shell">
+        <SectionHeading
+          eyebrow="Selected Work"
+          title={sections.projects.heading}
+          subtitle={sections.projects.subheading}
+        />
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12 lg:gap-12">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group relative bg-card rounded-lg overflow-hidden border border-border hover:border-accent transition-all duration-300 cursor-pointer hover:scale-105"
-              onClick={() => setSelectedProject(project)}
+        <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <RevealItem
+              key={project.title}
+              className={project.featured ? 'sm:col-span-2' : ''}
             >
-              {/* Project Image */}
-              <div className="relative h-48 sm:h-56 bg-background overflow-hidden">
-                <img
-                  src={`${baseUrl}${project.image.replace(/^\//, '')}`}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
-              </div>
+              <button
+                type="button"
+                onClick={() => open(project)}
+                className="surface-card group h-full w-full overflow-hidden text-left"
+                aria-label={`View details for ${project.title}`}
+              >
+                <div className="relative overflow-hidden">
+                  <SmartImage
+                    src={project.image}
+                    alt={project.title}
+                    ratio={project.featured ? '16 / 9' : '16 / 10'}
+                    imgClassName="transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
 
-              {/* Project Content */}
-              <div className="p-3 sm:p-4">
-                <h3 className="text-lg sm:text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-secondary mb-3 line-clamp-2">
-                  {project.description}
-                </p>
+                  <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-accent backdrop-blur-sm ring-1 ring-white/10">
+                    {project.category}
+                  </span>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.slice(0, 3).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 bg-accent/10 text-accent text-xs rounded border border-accent/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.techStack.length > 3 && (
-                    <span className="px-2 py-1 text-secondary text-xs">
-                      +{project.techStack.length - 3}
-                    </span>
-                  )}
+                  <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-black/55 text-primary opacity-0 backdrop-blur-sm ring-1 ring-white/10 transition-all duration-300 group-hover:opacity-100">
+                    <ArrowUpRight size={14} />
+                  </span>
                 </div>
-              </div>
-            </div>
+
+                <div className="p-5">
+                  <h3 className="font-montserrat text-base font-bold leading-snug text-primary transition-colors duration-300 group-hover:text-accent sm:text-lg">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 font-manrope text-sm leading-relaxed text-secondary">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {project.techStack.slice(0, 3).map((tech) => (
+                      <span key={tech} className="chip">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.techStack.length > 3 && (
+                      <span className="chip border-transparent bg-transparent text-muted">
+                        +{project.techStack.length - 3}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </button>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
 
-      {/* Project Modal */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedProject(null)}
-        >
-          <div
-            className="bg-card rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-border shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+      {/* ---------- Detail modal ---------- */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+            onClick={close}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
           >
-            {/* Modal Header */}
-            <div className="sticky top-0 bg-card border-b border-border p-4 sm:p-6 flex items-center justify-between z-10">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-primary">
-                {selectedProject.title}
-              </h3>
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="p-2 hover:bg-background rounded transition-colors duration-300 text-secondary hover:text-primary"
-                aria-label="Close"
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-4 sm:p-6 md:p-8">
-              <div className="relative rounded-lg overflow-hidden mb-6">
-                <img
-                  src={`${baseUrl}${selectedProject.image.replace(/^\//, '')}`}
-                  alt={selectedProject.title}
-                  className="w-full h-56 sm:h-64 md:h-80 object-cover"
-                />
-              </div>
-
-              <div className="mb-4">
-                <span className="px-3 py-1 bg-accent/10 text-accent text-sm font-semibold rounded border border-accent/20 uppercase tracking-wider">
-                  {selectedProject.category}
-                </span>
-              </div>
-
-              <p className="text-base sm:text-lg text-secondary leading-relaxed mb-6 whitespace-pre-line">
-                {selectedProject.longDescription || selectedProject.description}
-              </p>
-
-              <div className="mb-6">
-                <h4 className="text-primary font-bold mb-3 text-base sm:text-lg">Technologies:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.techStack.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 sm:px-4 sm:py-2 bg-accent/10 text-accent text-xs sm:text-sm rounded border border-accent/20 font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+            <motion.div
+              className="max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: 10 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Header */}
+              <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border bg-card/95 px-5 py-4 backdrop-blur-sm sm:px-6">
+                <div>
+                  <p className="eyebrow mb-1">{selected.category}</p>
+                  <h3
+                    id="project-modal-title"
+                    className="font-montserrat text-lg font-black leading-tight text-primary sm:text-2xl"
+                  >
+                    {selected.title}
+                  </h3>
                 </div>
+                <button
+                  ref={closeButtonRef}
+                  onClick={close}
+                  className="shrink-0 rounded-full p-2 text-secondary transition-colors hover:bg-white/5 hover:text-primary"
+                  aria-label="Close dialog"
+                >
+                  <X size={20} />
+                </button>
               </div>
 
-              {selectedProject.liveUrl && selectedProject.liveUrl !== '#' && (
-                <a
-                  href={selectedProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background rounded font-bold text-sm sm:text-base hover:bg-opacity-90 transition-all duration-300 uppercase tracking-wider"
-                >
-                  View Publication
-                  <ExternalLink size={18} />
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+              <div className="px-5 pb-6 pt-5 sm:px-6">
+                <SmartImage
+                  src={selected.image}
+                  alt={selected.title}
+                  ratio="16 / 9"
+                  eager
+                  className="mb-5 rounded-xl"
+                />
+
+                <p className="font-manrope text-sm leading-relaxed text-secondary sm:text-base">
+                  {selected.longDescription || selected.description}
+                </p>
+
+                <div className="mt-6">
+                  <h4 className="mb-3 font-manrope text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                    Technologies
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selected.techStack.map((tech) => (
+                      <span key={tech} className="chip">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {selected.liveUrl && selected.liveUrl !== '#' && (
+                  <a
+                    href={selected.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary mt-6"
+                  >
+                    {selected.linkLabel || 'View Project'}
+                    <ExternalLink size={15} />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

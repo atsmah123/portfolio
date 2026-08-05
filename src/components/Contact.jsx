@@ -1,87 +1,106 @@
 import React from 'react'
-import { Mail, Linkedin } from 'lucide-react'
+import { Mail, Linkedin, FileText, ArrowUp } from 'lucide-react'
+import { profile, sections, footer } from '../data/siteContent'
+import SectionHeading from './ui/SectionHeading'
+import Reveal from './ui/Reveal'
 
 const Contact = () => {
+  const baseUrl = import.meta.env.BASE_URL
+
+  const channels = [
+    {
+      icon: Mail,
+      label: 'Email',
+      value: profile.email,
+      href: `mailto:${profile.email}`,
+      external: false,
+    },
+    {
+      icon: Linkedin,
+      label: 'LinkedIn',
+      value: 'Connect with me',
+      href: profile.linkedin,
+      external: true,
+    },
+    {
+      icon: FileText,
+      label: 'Résumé',
+      value: 'Download CV',
+      href: `${baseUrl}${profile.resume}`,
+      external: true,
+    },
+  ]
+
   return (
-    <section id="contact" className="py-12 sm:py-16 md:py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        {/* Section Header */}
-        <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter mb-3 sm:mb-4">
-            Contact
-          </h2>
-          <div className="w-20 sm:w-24 h-0.5 bg-accent"></div>
+    <section id="contact" className="section-spacing pb-0">
+      <div className="section-shell">
+        <SectionHeading
+          eyebrow="Get In Touch"
+          title={sections.contact.heading}
+          subtitle={sections.contact.subheading}
+          align="center"
+        />
+
+        {/* Contact channels */}
+        <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
+          {channels.map((channel, i) => {
+            const Icon = channel.icon
+            return (
+              <Reveal key={channel.label} delay={i * 0.08}>
+                <a
+                  href={channel.href}
+                  {...(channel.external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                  className="surface-card group flex h-full flex-col items-center gap-2.5 p-6 text-center"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent/10 text-accent ring-1 ring-accent/20 transition-transform duration-300 group-hover:scale-110">
+                    <Icon size={19} strokeWidth={1.8} />
+                  </span>
+                  <span className="font-manrope text-[11px] uppercase tracking-[0.18em] text-muted">
+                    {channel.label}
+                  </span>
+                  <span className="break-all font-manrope text-sm font-medium text-primary transition-colors group-hover:text-accent">
+                    {channel.value}
+                  </span>
+                </a>
+              </Reveal>
+            )
+          })}
         </div>
 
-        {/* Contact Content */}
-        <div className="max-w-4xl mx-auto text-center space-y-8 sm:space-y-12">
-          <p className="text-lg sm:text-xl md:text-2xl text-secondary leading-relaxed">
-            I'm currently exploring opportunities in computational fluid dynamics, machine learning, and aerodynamics research.
-            Whether you have a question or just want to say hi, feel free to reach out!
-          </p>
-
-          {/* Contact Methods */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
-            <a
-              href="mailto:atharva@umich.edu"
-              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
-            >
-              <Mail className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
-              <div>
-                <p className="text-xs text-secondary uppercase tracking-wider mb-1">Email</p>
-                <p className="text-sm sm:text-base text-primary font-medium break-all">atharva@umich.edu</p>
-              </div>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/atharva-mahajan-/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
-            >
-              <Linkedin className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
-              <div>
-                <p className="text-xs text-secondary uppercase tracking-wider mb-1">LinkedIn</p>
-                <p className="text-sm sm:text-base text-primary font-medium">Connect with me</p>
-              </div>
-            </a>
-
-            {/* GitHub section - commented out for now */}
-            {/* <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-accent transition-all duration-300 group"
-            >
-              <Github className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
-              <div>
-                <p className="text-xs text-secondary uppercase tracking-wider mb-1">GitHub</p>
-                <p className="text-sm sm:text-base text-primary font-medium">View my code</p>
-              </div>
-            </a> */}
-          </div>
-
-          {/* CTA Button */}
-          <div className="pt-6 sm:pt-8">
-            <a
-              href="mailto:atharva@umich.edu"
-              className="inline-flex items-center gap-2 px-8 py-3 sm:py-4 bg-accent text-background rounded font-bold text-base sm:text-lg hover:bg-opacity-90 transition-all duration-300 uppercase tracking-wider shadow-lg hover:scale-105"
-            >
+        {/* Primary CTA */}
+        <Reveal delay={0.2}>
+          <div className="mt-12 text-center">
+            <a href={`mailto:${profile.email}`} className="btn-primary px-8 py-3.5 text-base">
               Say Hello
-              <Mail size={20} />
+              <Mail size={17} />
             </a>
           </div>
-        </div>
+        </Reveal>
 
         {/* Footer */}
-        <div className="mt-16 sm:mt-20 pt-8 border-t border-border text-center space-y-4">
-          <p className="text-secondary text-sm sm:text-base">
-            © 2025 Atharva Mahajan. All rights reserved.
-          </p>
-          <p className="text-secondary text-xs sm:text-sm">
-            Designed & Built with React + Vite + Tailwind CSS
-          </p>
-        </div>
+        <footer className="mt-20 border-t border-border py-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="text-center sm:text-left">
+              <p className="font-manrope text-sm text-secondary">
+                © {new Date().getFullYear()} {footer.owner}
+              </p>
+              <p className="mt-1 font-manrope text-xs text-muted">{footer.builtWith}</p>
+            </div>
+
+            <a
+              href="#home"
+              className="group inline-flex items-center gap-2 font-manrope text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-accent"
+            >
+              Back to top
+              <ArrowUp
+                size={14}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+            </a>
+          </div>
+        </footer>
       </div>
     </section>
   )

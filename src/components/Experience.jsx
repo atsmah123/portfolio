@@ -1,87 +1,94 @@
 import React from 'react'
-import { Briefcase, Calendar, MapPin } from 'lucide-react'
+import { Building2, MapPin, Calendar } from 'lucide-react'
 import { experience } from '../data/portfolioData'
+import { sections } from '../data/siteContent'
+import Reveal from './ui/Reveal'
+import SectionHeading from './ui/SectionHeading'
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-12 sm:py-16 md:py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        {/* Section Header */}
-        <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter mb-3 sm:mb-4">
-            Experience
-          </h2>
-          <div className="w-20 sm:w-24 h-0.5 bg-accent"></div>
-        </div>
+    <section id="experience" className="section-spacing">
+      <div className="section-shell">
+        <SectionHeading
+          eyebrow="Where I've Worked"
+          title={sections.experience.heading}
+          subtitle={sections.experience.subheading}
+        />
 
-        {/* Timeline */}
-        <div className="relative space-y-12 sm:space-y-16">
-          {/* Vertical line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 md:w-1 bg-border md:-translate-x-1/2"></div>
+        {/* Timeline. The rail sits at a fixed left offset on all screens, which
+            keeps dots, line and cards aligned (the old layout drifted apart). */}
+        <div className="relative">
+          <div
+            aria-hidden
+            className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-accent/50 via-border to-transparent"
+          />
 
-          {/* Experience items */}
-          {experience.map((exp, index) => (
-            <div
-              key={index}
-              className={`relative flex ${
-                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}
-            >
-              {/* Timeline dot */}
-              <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-accent rounded-full border-4 sm:border-4 border-background md:-translate-x-1/2 z-10"></div>
+          <div className="space-y-6">
+            {experience.map((exp, index) => (
+              <Reveal key={`${exp.role}-${index}`} delay={Math.min(index * 0.05, 0.25)}>
+                <div className="relative pl-9 sm:pl-12">
+                  {/* Dot */}
+                  <span className="absolute left-0 top-6 flex h-3.5 w-3.5 items-center justify-center">
+                    {exp.current && (
+                      <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-accent/60" />
+                    )}
+                    <span
+                      className={`relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-background ${
+                        exp.current ? 'bg-accent' : 'bg-[#39414f]'
+                      }`}
+                    />
+                  </span>
 
-              {/* Content */}
-              <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${
-                index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
-              }`}>
-                <div className="bg-card border border-border rounded-lg p-4 sm:p-6 md:p-8 hover:border-accent transition-all duration-300 hover:shadow-lg">
-                  {/* Date */}
-                  <div className="flex items-center gap-2 text-accent text-xs sm:text-sm font-semibold mb-2 sm:mb-3 uppercase tracking-wider">
-                    <Calendar size={14} className="sm:w-4 sm:h-4" />
-                    <span>{exp.date}</span>
-                  </div>
-
-                  {/* Role */}
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-2 sm:mb-3">
-                    {exp.role}
-                  </h3>
-
-                  {/* Company & Location */}
-                  <div className="space-y-1 mb-3 sm:mb-4">
-                    <div className="flex items-center gap-2 text-secondary text-sm sm:text-base">
-                      <Briefcase size={14} className="sm:w-4 sm:h-4" />
-                      <span>{exp.company}</span>
+                  <article className="surface-card p-5 sm:p-6">
+                    {/* Date + current badge */}
+                    <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+                      <span className="inline-flex items-center gap-1.5 font-manrope text-xs font-semibold uppercase tracking-wider text-accent">
+                        <Calendar size={13} />
+                        {exp.date}
+                      </span>
+                      {exp.current && (
+                        <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300 ring-1 ring-emerald-400/25">
+                          Current
+                        </span>
+                      )}
                     </div>
-                    {exp.location && (
-                      <div className="flex items-center gap-2 text-secondary text-sm sm:text-base">
-                        <MapPin size={14} className="sm:w-4 sm:h-4" />
-                        <span>{exp.location}</span>
+
+                    <h3 className="font-montserrat text-lg font-bold leading-snug text-primary sm:text-xl">
+                      {exp.role}
+                    </h3>
+
+                    {/* Company + location */}
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-manrope text-sm text-secondary">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Building2 size={14} className="text-muted" />
+                        {exp.company}
+                      </span>
+                      {exp.location && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin size={14} className="text-muted" />
+                          {exp.location}
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="mt-3.5 font-manrope text-sm leading-relaxed text-secondary">
+                      {exp.description}
+                    </p>
+
+                    {exp.technologies?.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {exp.technologies.map((tech) => (
+                          <span key={tech} className="chip">
+                            {tech}
+                          </span>
+                        ))}
                       </div>
                     )}
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm sm:text-base text-secondary leading-relaxed whitespace-pre-line">
-                    {exp.description}
-                  </p>
-
-                  {/* Technologies */}
-                  {exp.technologies && (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {exp.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2 sm:px-3 py-1 bg-accent/10 text-accent text-xs sm:text-sm rounded border border-accent/20 font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  </article>
                 </div>
-              </div>
-            </div>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

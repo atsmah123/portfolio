@@ -1,89 +1,103 @@
 import React from 'react'
-import { GraduationCap, Award, Zap } from 'lucide-react'
+import { Globe, BookOpen, Banknote, Sparkles, Cpu, Award, Users } from 'lucide-react'
+import { about, profile } from '../data/siteContent'
+
+/**
+ * Icons available to the `stats` entries in siteContent.js.
+ * To use a new icon, import it above and add it to this map.
+ */
+const statIcons = { Globe, BookOpen, Banknote, Sparkles, Cpu, Award, Users }
+import Reveal, { RevealGroup, RevealItem } from './ui/Reveal'
+import SectionHeading from './ui/SectionHeading'
+import StatCounter from './ui/StatCounter'
+
+/**
+ * Renders **bold** markers from the content file as accent-coloured text,
+ * so bio copy can be edited in siteContent.js without touching JSX.
+ */
+const renderHighlights = (text) =>
+  text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith('**') && part.endsWith('**') ? (
+      <span key={i} className="font-semibold text-accent">
+        {part.slice(2, -2)}
+      </span>
+    ) : (
+      <React.Fragment key={i}>{part}</React.Fragment>
+    )
+  )
 
 const About = () => {
   const baseUrl = import.meta.env.BASE_URL
 
-  const stats = [
-    { icon: GraduationCap, label: 'International Research Collaborations', value: '4' },
-    { icon: Award, label: 'Publications', value: '1' },
-    { icon: Zap, label: 'Non-dilutive Funding Generated', value: '$12000' },
-  ]
-
   return (
-    <section id="about" className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        {/* Section Header */}
-        <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary tracking-tighter mb-3 sm:mb-4">
-            About
-          </h2>
-          <div className="w-20 sm:w-24 h-0.5 bg-accent"></div>
-        </div>
+    <section id="about" className="section-spacing">
+      <div className="section-shell">
+        <SectionHeading eyebrow="Who I Am" title={about.heading} />
 
-        {/* Content Grid */}
-        <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-start">
-          {/* Left Column - Text */}
-          <div className="space-y-4 sm:space-y-6">
-            <p className="text-base sm:text-lg md:text-xl text-secondary leading-relaxed">
-              I am a graduate student at the{' '}
-              <span className="text-accent font-semibold">University of Michigan</span>, 
-              specializing in computational fluid dynamics, machine learning, and optimization.
-            </p>
-            <p className="text-base sm:text-lg md:text-xl text-secondary leading-relaxed">
-              My research focuses on developing innovative solutions at the intersection of AI and engineering, 
-              with published work in{' '}
-              <span className="text-accent font-semibold">turbulent boundary layers</span> and 
-              hands-on experience in CUDA-accelerated computing.
-            </p>
-            <p className="text-base sm:text-lg md:text-xl text-secondary leading-relaxed">
-              As a co-founder of{' '}
-              <span className="text-accent font-semibold">Applied Aero Labs</span>, 
-              I've led hardware projects from conception to commercialization, demonstrating both 
-              technical expertise and entrepreneurial skills.
-            </p>
+        <div className="grid items-start gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+          {/* Bio */}
+          <div className="space-y-5">
+            {about.paragraphs.map((text, i) => (
+              <Reveal key={i} delay={i * 0.08}>
+                <p className="font-manrope text-base leading-relaxed text-secondary sm:text-lg">
+                  {renderHighlights(text)}
+                </p>
+              </Reveal>
+            ))}
 
-            {/* Profile Image */}
-            <div className="mt-6 sm:mt-8 md:hidden">
-              <img
-                src={`${baseUrl}profile.jpeg`}
-                alt="Atharva Mahajan"
-                className="w-full max-w-md mx-auto rounded-lg border-4 sm:border-4 border-accent shadow-2xl"
-              />
-            </div>
-          </div>
-
-          {/* Right Column - Image and Stats */}
-          <div className="space-y-6 sm:space-y-12">
-            <div className="hidden md:block">
-              <img
-                src={`${baseUrl}profile.jpeg`}
-                alt="Atharva Mahajan"
-                className="w-full rounded-lg border-4 border-accent shadow-2xl"
-              />
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-3 sm:gap-4">
-              {stats.map((stat, index) => {
-                const Icon = stat.icon
+            {/* Stats */}
+            <RevealGroup className="grid grid-cols-1 gap-3 pt-4 sm:grid-cols-3" delay={0.1}>
+              {about.stats.map((stat) => {
+                const Icon = statIcons[stat.icon] || Sparkles
                 return (
-                  <div
-                    key={index}
-                    className="bg-card border border-border rounded-lg p-4 sm:p-6 text-center hover:border-accent transition-all duration-300"
-                  >
-                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-accent mx-auto mb-2 sm:mb-3" />
-                    <div className="text-2xl sm:text-4xl font-black text-primary mb-1 sm:mb-2">
-                      {stat.value}
+                  <RevealItem key={stat.label}>
+                    <div className="surface-card group h-full p-5 text-center">
+                      <Icon
+                        className="mx-auto mb-3 h-5 w-5 text-accent transition-transform duration-300 group-hover:scale-110"
+                        strokeWidth={1.8}
+                      />
+                      <div className="font-montserrat text-2xl font-black text-primary sm:text-3xl">
+                        <StatCounter
+                          value={stat.value}
+                          prefix={stat.prefix || ''}
+                          suffix={stat.suffix || ''}
+                        />
+                      </div>
+                      <div className="mt-2 font-manrope text-[11px] uppercase leading-snug tracking-wider text-muted">
+                        {stat.label}
+                      </div>
                     </div>
-                    <div className="text-xs sm:text-sm text-secondary uppercase tracking-wider">
-                      {stat.label}
-                    </div>
-                  </div>
+                  </RevealItem>
                 )
               })}
-            </div>
+            </RevealGroup>
           </div>
+
+          {/* Portrait */}
+          <Reveal direction="left" delay={0.15}>
+            <div className="relative mx-auto max-w-sm lg:max-w-none">
+              {/* Offset accent frame */}
+              <div
+                aria-hidden
+                className="absolute -inset-3 rounded-3xl border border-accent/20 lg:-inset-4"
+              />
+              <div className="surface-card overflow-hidden rounded-2xl p-0">
+                <img
+                  src={`${baseUrl}${profile.photo}`}
+                  alt={`${profile.firstName} ${profile.lastName}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[4/5] w-full object-cover"
+                />
+              </div>
+              {/* Caption strip */}
+              <div className="glass absolute -bottom-4 left-1/2 w-[85%] -translate-x-1/2 rounded-xl px-4 py-2.5 text-center">
+                <p className="font-manrope text-[11px] uppercase tracking-[0.16em] text-secondary">
+                  Ann Arbor, Michigan
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
