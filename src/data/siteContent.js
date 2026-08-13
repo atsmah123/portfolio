@@ -18,9 +18,9 @@ export const profile = {
   // Sits above the name in the hero — your one-line positioning.
   kicker: 'AI4Science',
 
-  tagline: 'MS Mechanical Engineering | Applied ML, GenAI & DRL for Science',
+  tagline: 'MS Mechanical Engineering | Generative Models & RL for Physical Systems',
   intro:
-    'Applying generative models and deep reinforcement learning to scientific discovery — building ML systems that learn, control and explain complex physical processes.',
+    'Building generative models and closed-loop control policies for high-dimensional physical systems — from reward-guided flow matching that cuts drag by 48.95%, to geometry-generalizing surrogates that replace costly CFD runs with a model query.',
   institution: {
     name: 'University of Michigan',
     url: 'https://umich.edu',
@@ -39,18 +39,18 @@ export const profile = {
 export const coreSkills = [
   {
     icon: 'BrainCircuit',
-    area: 'Applied ML & GenAI',
-    items: ['PyTorch', 'TensorFlow', 'Diffusion Models', 'Transformers', 'SciML'],
+    area: 'Generative Modeling',
+    items: ['Flow Matching', 'Diffusion', 'Guided Sampling', 'PyTorch', 'SciML'],
   },
   {
     icon: 'Bot',
     area: 'Deep RL & Control',
-    items: ['Deep RL', 'Policy Optimization', 'Adaptive Control', 'Gymnasium'],
+    items: ['Deep RL', 'Reward Modeling', 'Policy Optimization', 'Closed-Loop Control'],
   },
   {
     icon: 'ScanSearch',
-    area: 'Explainability',
-    items: ['SHAP', 'Feature Attribution', 'Surrogate Models', 'XAI'],
+    area: 'Surrogates & Explainability',
+    items: ['Neural Surrogates', 'Reduced-Order Modeling', 'SHAP', 'XAI'],
   },
   {
     icon: 'Cpu',
@@ -78,16 +78,18 @@ export const navLinks = [
 export const about = {
   heading: 'About',
   paragraphs: [
-    "I'm a graduate researcher at the **University of Michigan** working on **AI for Science** — applying generative models and deep reinforcement learning to problems in physics and engineering.",
-    'My current work builds **DRL-based control policies** for complex physical systems and uses **explainable AI** to understand *why* those policies work — turning black-box controllers into something a scientist can reason about.',
-    'That sits on a deep computational foundation: published research in **turbulent boundary layers**, **CUDA-accelerated** solvers, and large-scale simulation on HPC systems. I know the physics my models are learning.',
-    'As co-founder of **Applied Aero Labs**, I took a hardware product from concept to funded prototype, pairing technical depth with an entrepreneurial streak.',
+    "I'm a graduate researcher at the **University of Michigan** working on **AI for Science** — building generative models and closed-loop control policies for high-dimensional physical systems.",
+    'My current work, **Policy-DRIFT**, trains a **conditional flow-matching** model over a multi-regime flow manifold and steers its sampling trajectories with **reward guidance**, so the generator proposes flow states that are both physically realizable and reward-maximizing. A lightweight **deep-RL policy** then learns to reach them — reaching **48.95% drag reduction** at **37× lower actuation energy** than the DRL benchmark.',
+    'In parallel I work on **geometry-generalizing foundation models** for fluid flow: surrogates that transfer across shapes rather than being retrained per case, so a design query becomes a **model query instead of a costly CFD run**.',
+    'Both threads share a conviction — let a learned model say *where a system should go*, and let a small controller or a single forward pass work out the rest. I also use **explainable AI** to interrogate what those models have actually learned.',
+    'That sits on a deep computational foundation: published research in **turbulent boundary layers**, a **450× CUDA-accelerated** flow solver, and large-scale DNS on HPC systems. I know the physics my models are learning.',
+    'As co-founder of **Applied Aero Labs**, I took a hardware product from concept to grant-funded prototype, pairing technical depth with an entrepreneurial streak.',
   ],
   // `value` is the number counted up to; `suffix`/`prefix` wrap it.
   stats: [
     { icon: 'Globe', label: 'International Research Collaborations', value: 4 },
-    { icon: 'BookOpen', label: 'Peer-Reviewed Publications', value: 1 },
-    { icon: 'Banknote', label: 'Non-Dilutive Funding Raised', value: 12000, prefix: '$' },
+    { icon: 'BookOpen', label: 'Publications & Preprints', value: 2 },
+    { icon: 'Award', label: 'Grant-Funded Venture Co-Founded', value: 1 },
   ],
 }
 
@@ -102,11 +104,12 @@ export const sections = {
   },
   projects: {
     heading: 'Projects',
-    subheading: 'Machine learning for scientific discovery, backed by simulation and hardware.',
+    subheading:
+      'Generative models and learned control for physical systems, backed by simulation and hardware.',
   },
   publications: {
     heading: 'Publications',
-    subheading: 'Peer-reviewed research output.',
+    subheading: 'Peer-reviewed articles and preprints.',
   },
   contact: {
     heading: 'Contact',

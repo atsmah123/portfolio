@@ -18,15 +18,27 @@
 // -----------------------------------------------------------------------------
 export const projects = [
   {
-    title: 'Adaptive Flow Control with Explainable RL',
-    category: 'AI4Science · Deep RL',
-    image: 'images/projects/meshfree.jpg',
+    title: 'Policy-DRIFT: Reward-Guided Generative Control of Turbulence',
+    category: 'AI4Science · Generative Models + Deep RL',
+    image: 'images/projects/policy-drift.jpg',
     featured: true,
     description:
-      'Deep RL control policies for physical systems, made interpretable with SHAP-based explainability.',
+      'A conditional flow-matching model proposes reward-maximizing flow states; a lightweight RL policy learns to reach them. 48.95% drag reduction at 37× lower actuation energy.',
     longDescription:
-      'Developing an adaptive flow control framework where ML-based control policies are analyzed and refined using SHAP-based explainability techniques. The setup combines CFD and surrogate models with learned controllers, using XAI tools to understand feature importance and guide improvements in actuation strategies — turning a black-box policy into something a scientist can reason about.',
-    techStack: ['Deep RL', 'SHAP', 'XAI', 'Python', 'PyTorch'],
+      'Most learned flow controllers ask a policy to discover both what a good flow state looks like and how to get there. Policy-DRIFT splits those jobs. A conditional flow-matching generative model is trained over a multi-regime flow manifold, and its sampling trajectories are steered by Terminal Reward Guidance — so the generator synthesizes target states that are simultaneously physically realizable and reward-maximizing. A small deep-RL policy is then trained only to track those targets. The result reaches 48.95% drag reduction at Re_τ = 180, a 16.2% improvement over the DRL benchmark, while spending 37× less actuation energy. The end-to-end PyTorch/GPU stack was built over 22,000+ DNS snapshot pairs, and the deployed controller runs from wall-only sensing with no generative model queries at inference.',
+    techStack: ['Flow Matching', 'Guided Sampling', 'Deep RL', 'PyTorch', 'DNS'],
+    liveUrl: 'https://arxiv.org/abs/2605.14022',
+    linkLabel: 'Read the Preprint',
+  },
+  {
+    title: 'Geometry-Generalizing Foundation Models for Flow Prediction',
+    category: 'AI4Science · Neural Surrogates',
+    image: 'images/projects/meshfree.jpg',
+    description:
+      'Surrogate models that transfer across geometries, turning a costly CFD simulation into a single model query.',
+    longDescription:
+      'Conventional neural surrogates are retrained for every new geometry, which limits them to the design they were fitted to. This work develops foundation-style models that generalize across shapes, so a new configuration can be evaluated by querying the model rather than running a full CFD simulation. The aim is to compress design-space exploration — where the cost is dominated by re-simulating many candidate geometries — into fast inference over a single trained model.',
+    techStack: ['Foundation Models', 'Neural Surrogates', 'PyTorch', 'CFD', 'HPC'],
     liveUrl: '',
   },
   {
@@ -46,9 +58,9 @@ export const projects = [
     category: 'High-Performance Computing',
     image: 'images/projects/airfoil.png',
     description:
-      'GPU-parallelized meshfree flow solver with significant speedup over CPU baselines.',
+      'GPU-parallelized meshfree Euler solver driven to a 450× speedup over the CPU baseline.',
     longDescription:
-      'Developed a 3D compressible flow solver using CUDA and Fortran with a meshfree particle formulation. The implementation focused on exploiting GPU parallelism to improve runtime performance relative to CPU-based versions for representative CFD test cases.',
+      'Developed a 3D meshfree Euler solver in Fortran and CUDA, then drove a 450× GPU speedup over the CPU baseline through kernel restructuring, memory-coalescing, and NVIDIA Nsight-guided profiling. The work was as much performance engineering as numerics — finding where a meshfree formulation maps badly onto GPU memory hierarchies, and restructuring it until it did.',
     techStack: ['CUDA', 'Fortran', 'GPU Computing', 'CFD'],
     liveUrl: '',
   },
@@ -59,8 +71,8 @@ export const projects = [
     description:
       'Co-founded a startup building a portable fan-array wind tunnel for education and R&D.',
     longDescription:
-      'At Applied Aero Labs, contributed to the design and construction of a portable, open-circuit, fan-array wind tunnel. Work spanned mechanical design in SolidWorks, basic sensor integration using Arduino, and early-stage control interface development. The project received approximately $12,000 in government funding to support prototyping and initial deployment as an educational and research tool.',
-    techStack: ['SolidWorks', 'Arduino', 'Hardware Design', 'Govt. Funding'],
+      "At Applied Aero Labs, co-founded and built India's first portable, multi-velocity fan-array wind tunnel. Work spanned mechanical design in SolidWorks, embedded control and electronics integration, and client validation. The venture was competitively selected for a government innovation grant, which funded prototyping and initial deployment as an educational and research tool.",
+    techStack: ['SolidWorks', 'Embedded Control', 'Hardware Design', 'Govt. Grant'],
     liveUrl: '',
   },
   {
@@ -85,42 +97,52 @@ export const projects = [
 // -----------------------------------------------------------------------------
 export const experience = [
   {
-    role: 'Adaptive Flow Control optimized through XAI',
+    role: 'Policy-DRIFT — Reward-Guided Generative Control of Turbulence',
     date: 'Aug 2025 — Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
-      'Working on adaptive flow control strategies supported by SHAP-based explainable AI analysis to interpret and improve ML-driven control decisions.',
-    technologies: ['XAI', 'SHAP', 'Python', 'CFD', 'ML'],
+      'First author. Trained a conditional flow-matching model over a multi-regime flow manifold and steered its sampling with Terminal Reward Guidance, then trained a lightweight deep-RL policy to track the generated targets — reaching 48.95% drag reduction at 37× lower actuation energy. Advised by Prof. Ricardo Vinuesa.',
+    technologies: ['Flow Matching', 'Guided Sampling', 'Deep RL', 'PyTorch', 'DNS'],
   },
   {
-    role: 'Research & Teaching Assistant — ML/AI for Fluid Mechanics',
-    date: 'Aug 2024 — Present',
+    role: 'Geometry-Generalizing Foundation Models for Flow Prediction',
+    date: 'Aug 2025 — Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
-      'Supporting graduate-level teaching on AI methods in fluid mechanics and helping develop interactive material for turbulence modeling and CFD topics.',
-    technologies: ['Machine Learning', 'TensorFlow', 'Python', 'CFD'],
+      'Developing surrogate models that generalize across geometries, so evaluating a new design becomes a model query rather than a full CFD simulation.',
+    technologies: ['Foundation Models', 'Neural Surrogates', 'PyTorch', 'CFD'],
   },
   {
-    role: 'Effects of Upstream Pressure History on Reynolds Stresses',
-    date: 'Jan 2024 — May 2025',
+    role: 'Research & Teaching Assistant — Deep Learning for Fluid Mechanics',
+    date: 'Jan 2025 — Present',
+    org: 'University of Michigan',
+    orgMeta: 'Ann Arbor, MI',
+    current: true,
+    description:
+      'Designed and taught a hands-on deep-learning curriculum (MLPs, RNNs, autoencoders, CNNs) for 30+ graduate students and practicing engineers. Authored the core PyTorch/Jupyter notebook suite on flow-field reconstruction, reduced-order modeling and data-driven turbulence closure, and delivered the applied version to Siemens engineers in Stockholm.',
+    technologies: ['PyTorch', 'Deep Learning', 'Teaching', 'Reduced-Order Modeling'],
+  },
+  {
+    role: 'Upstream Pressure-History Effects on Adverse-Pressure-Gradient TBLs',
+    date: 'Jun 2024 — Jun 2025',
     org: 'KTH Royal Institute of Technology',
     orgMeta: 'Stockholm, Sweden',
     description:
-      'Analyzed DNS datasets to study turbulence structures in adverse pressure gradient boundary layers, leading to a publication in the International Journal of Heat and Fluid Flow.',
-    technologies: ['DNS', 'MATLAB', 'Python', 'HPC'],
+      'Ran DNS/LES campaigns on turbulent boundary layers under varying upstream pressure histories, quantifying non-local memory effects via spectral densities, Reynolds-stress budgets and β-evolution. Published in the International Journal of Heat and Fluid Flow. Advised by Prof. Ricardo Vinuesa.',
+    technologies: ['DNS/LES', 'MATLAB', 'Python', 'HPC'],
   },
   {
     role: 'Co-founder, Applied Aero Labs',
-    date: 'Jan 2023 — May 2025',
+    date: 'Apr 2023 — May 2025',
     org: 'Applied Aero Labs',
     orgMeta: 'India',
     description:
-      'Contributed to the design and development of a portable fan-array wind tunnel and helped secure around $12,000 in government funding to support development and early commercialization.',
-    technologies: ['SolidWorks', 'Arduino', 'Product Design', 'Entrepreneurship'],
+      "Co-founded an aerodynamic R&D venture building India's first portable, multi-velocity fan-array wind tunnel. Secured a government innovation grant and owned mechanical design, embedded control and electronics integration, and client validation.",
+    technologies: ['SolidWorks', 'Embedded Control', 'Product Design', 'Entrepreneurship'],
   },
   {
     role: 'Computational Analysis of Autophoretic Particles',
@@ -156,6 +178,17 @@ export const experience = [
 //   Put YOUR name exactly as it appears in `authors` so it renders highlighted.
 // -----------------------------------------------------------------------------
 export const publications = [
+  {
+    title:
+      'Policy-DRIFT: Reward-Guided Generative Control of Wall-Bounded Turbulence',
+    authors: 'A. Mahajan, et al.',
+    venue: 'arXiv:2605.14022',
+    year: '2026',
+    type: 'Preprint',
+    url: 'https://arxiv.org/abs/2605.14022',
+    abstract:
+      'Introduces a control framework that decouples target synthesis from actuation: a conditional flow-matching model is trained over a multi-regime flow manifold and steered by Terminal Reward Guidance to generate physically realizable, reward-maximizing flow states, which a lightweight deep-RL policy then learns to track. Achieves 48.95% drag reduction at Re_τ = 180 — a 16.2% improvement over the DRL benchmark — at 37× lower actuation energy, with the deployed controller running from wall-only sensing.',
+  },
   {
     title:
       'Upstream history and local disequilibration in adverse pressure gradient turbulent boundary layers',
