@@ -1,0 +1,153 @@
+%-------------------------
+% Resume in Latex — Atharva Mahajan
+% Optimized for Physical AI / Applied ML roles
+%------------------------
+\documentclass[letterpaper,10pt]{article}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\input{glyphtounicode}
+\definecolor{accent}{RGB}{27,58,92}
+\definecolor{mid}{RGB}{46,109,164}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\oddsidemargin}{-0.58in}
+\addtolength{\textwidth}{1.16in}
+\addtolength{\topmargin}{-0.65in}
+\addtolength{\textheight}{1.3in}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+\titleformat{\section}{
+  \vspace{-9pt}\color{accent}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{mid}\titlerule \vspace{-6pt}]
+\pdfgentounicode=1
+\newcommand{\resumeItem}[1]{
+  \item\small{#1 \vspace{-2pt}}
+}
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{\color{accent}#1} & {\small\color{gray}#2} \\
+      \textit{\small\color{mid}#3} & \textit{\small\color{gray}#4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+\newcommand{\resumeProjectHeading}[2]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}{l@{\extracolsep{\fill}}r}
+      \small\textbf{\color{accent}#1} & {\small\color{gray}#2}\\
+    \end{tabular*}\vspace{-6pt}
+}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, label={\textcolor{mid}{\small\textbullet}}, topsep=1pt, itemsep=0pt, parsep=1pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{2pt}}
+\linespread{0.97}\selectfont
+\begin{document}
+\begin{center}
+    {\Huge \scshape \color{accent} Atharva Mahajan} \\ \vspace{3pt}
+    {\small \color{mid}\textit{Generative Models \& Reinforcement Learning for Physical Systems $\cdot$ M.S.\ University of Michigan}} \\ \vspace{4pt}
+    \small
+    \faPhone\ \texttt{+1 (734) 478-4043} \enspace\textcolor{mid}{$\mid$}\enspace
+    \href{mailto:atharvar.mahajan@gmail.com}{\faEnvelope\ \underline{atharvar.mahajan@gmail.com}} \enspace\textcolor{mid}{$\mid$}\enspace
+    \href{https://www.linkedin.com/in/atharva-mahajan-/}{\faLinkedin\ \underline{linkedin.com/in/atharva-mahajan}} \enspace\textcolor{mid}{$\mid$}\enspace
+    \href{https://atsmah123.github.io/portfolio/}{\faLink\ \underline{Portfolio}}
+\end{center}
+\vspace{-8pt}
+\section{Profile}
+\vspace{2pt}
+\small
+Machine-learning researcher building \textbf{generative models and closed-loop control policies for high-dimensional physical systems}. First author of \textit{Policy-DRIFT} - NeurIPS 2026 (conditional flow matching, reward-guided sampling, deep RL), which reaches \textbf{48.95\% drag reduction at 37$\times$ lower actuation energy}; prior work spans neural surrogates, DNS/LES turbulence studies, and \textbf{450$\times$ CUDA acceleration} of a CFD solver.
+\vspace{2pt}
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeProjectHeading
+    {University of Michigan \textnormal{-} \textit{M.S.\ Mechanical Engineering, GPA 3.98/4; focus: generative modeling, RL}}{Aug 2025 -- May 2027}
+  \resumeProjectHeading
+    {BITS Pilani, Hyderabad \textnormal{-} \textit{B.E.\ Mechanical Engineering (CGPA 9.16/10) $\cdot$ M.Sc.\ Physics}}{Nov 2020 -- May 2025}
+\resumeSubHeadingListEnd
+\vspace{2pt}
+\section{Technical Skills}
+\vspace{3pt}
+\small
+\textbf{\color{accent}Machine Learning and AI:} Generative modeling (conditional flow matching, diffusion, guided sampling), deep reinforcement learning, reward modeling, self-supervised representation learning (JEPA), foundation models, CNNs/RNNs/autoencoders, neural surrogates \& reduced-order modeling, physics-informed ML, closed-loop control \\
+\textbf{\color{accent}Languages \& Frameworks:} Python, C/C++, CUDA, Fortran, MATLAB, Bash $\cdot$ PyTorch, TensorFlow, NVIDIA Nsight, GPU/HPC clusters, Git, \LaTeX \\
+\textbf{\color{accent}Simulation \& Hardware:} DNS/LES, spectral \& meshfree solvers, boundary element methods, Dedalus, ANSYS Fluent, COMSOL, SolidWorks, Fusion 360, Arduino / embedded control
+\vspace{2pt}
+\section{Research Experience: Machine Learning \& Simulation}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Policy-DRIFT: Dynamic Reward-Informed Flow Trajectory Steering}{Aug 2025 -- Present}
+    {\textbf{First author} $\cdot$ Graduate Researcher, Prof.\ Ricardo Vinuesa, University of Michigan $\cdot$ \href{https://arxiv.org/abs/2605.14022}{\underline{NeurIPS 2026}}}{Ann Arbor, MI}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Trained a \textbf{conditional flow-matching} generative model over a multi-regime flow manifold, steering its sampling trajectories with \textbf{Terminal Reward Guidance} to synthesize physically realizable, reward-maximizing targets.}
+      \resumeItem{Trained a lightweight \textbf{deep-RL policy} to track those targets, reaching \textbf{48.95\% drag reduction} at $Re_\tau=180$ (\textbf{+16.2\% over the DRL benchmark}) at \textbf{37$\times$ lower actuation energy}.}
+      \resumeItem{Built the end-to-end \textbf{PyTorch/GPU} stack over 22{,}000+ DNS snapshot pairs; the deployed controller runs with \textbf{no generative queries at inference}.}
+    \resumeItemListEnd
+  \resumeSubheading
+    {CFD Foundation Models for Geometry-Generalizable Flow Prediction}{Jul 2026 -- Present}
+    {Graduate Researcher, University of Michigan}{Ann Arbor, MI}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Developing a \textbf{pretrained CFD surrogate} that generalizes across unseen geometries without per-case retraining, pairing a \textbf{joint-embedding predictive architecture (JEPA)} with a mesh-density-preserving geometry encoding.}
+      \resumeItem{Preliminary results show \textbf{zero-shot prediction on held-out geometries} without fine-tuning, targeting inference-time flow estimation at a fraction of solver cost.}
+    \resumeItemListEnd
+  \resumeSubheading
+    {Deep Learning for Fluid Mechanics \textnormal{-} Research \& Teaching Assistant}{Jan 2025 -- Present}
+    {University of Michigan $\cdot$ Flowthermolab (industry collaboration) $\cdot$ Siemens (Stockholm)}{Ann Arbor, MI}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Designed and taught a hands-on deep-learning curriculum (MLPs, RNNs, autoencoders, CNNs) for 30+ graduate students and practicing engineers.}
+      \resumeItem{Authored the course's core \textbf{PyTorch/Jupyter} notebook suite on \textbf{flow-field reconstruction, reduced-order modeling, and data-driven turbulence closure}; delivered the applied version to Siemens engineers in Stockholm.}
+    \resumeItemListEnd
+  \resumeSubheading
+    {Upstream Pressure-History Effects on Adverse-Pressure-Gradient TBLs}{Jun 2024 -- Jun 2025}
+    {Advisor: Prof.\ Ricardo Vinuesa, KTH Royal Institute of Technology}{Stockholm, Sweden}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Analyzed \textbf{DNS/LES} campaigns on turbulent boundary layers under varying upstream pressure histories, quantifying non-local memory effects via spectral densities, Reynolds-stress budgets, and $\beta$-evolution. Published in \href{https://www.sciencedirect.com/science/article/pii/S0142727X25002620}{\underline{\textit{Int.\ J.\ Heat and Fluid Flow}}} (2025).}
+    \resumeItemListEnd
+  \resumeSubheading
+    {GPU-Accelerated Meshfree CFD Solver (CUDA)}{Nov 2022 -- Dec 2023}
+    {Advisor: Dr.\ Anil Nemili, BITS Pilani}{Hyderabad, India}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Built a 3D meshfree Euler solver in Fortran/CUDA and drove a \textbf{450$\times$ GPU speedup} via kernel restructuring, memory-coalescing, and NVIDIA Nsight-guided profiling.}
+    \resumeItemListEnd
+  \resumeProjectHeading
+    {Uncertainty-Aware Airfoil Pressure Reconstruction from Sparse Taps \textnormal{-} \textit{Conditional Flow Matching}}{Jan 2026 -- Apr 2026}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Built a \textbf{conditional flow-matching} model reconstructing full airfoil surface pressure from as few as \textbf{5--20 pressure taps} with calibrated uncertainty, pairing a \textbf{DeepSets encoder with learned positional attention} with a 1D conv UNet vector field (FiLM-conditioned at every scale). \href{https://github.com/atsmah123/cfm-airfoil-pressure}{\underline{Code}}}
+      \resumeItem{Reached \textbf{183 Pa MAE} (14\% of pressure std) at 10 taps on \textbf{AirfRANS}, recovering $C_L$/$C_D$ to $\Delta C_L=0.094$; posterior is well-calibrated at \textbf{97\% coverage} within $\pm 2\sigma$.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+\section{Professional Experience}
+\resumeSubHeadingListStart
+  \resumeProjectHeading
+    {Applied Aero Labs Pvt Ltd \textnormal{-} \textit{Co-founder \& Technical Lead}}{Apr 2023 -- May 2025}
+    \vspace{0.5pt}
+    \resumeItemListStart
+      \resumeItem{Co-founded an aerodynamic R\&D venture building India's first portable, multi-velocity fan-array wind tunnel; secured \textbf{\$12,000 in government funding} and owned mechanical design, embedded control/electronics integration, and client validation.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+\section{Leadership \& Teaching}
+\vspace{3pt}
+\small
+\textbf{\color{accent}President, SEDS BPHC} \textit{(2023)}: led the technical roadmap of a 120-member student space org. \enspace \textbf{\color{accent}Structures Lead, Hyperloop India}: pod-frame and vacuum-seal design. \enspace \textbf{\color{accent}TA, Fluid Mechanics}: 200 undergraduates; tutorials and CFD labs.
+\end{document}

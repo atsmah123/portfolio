@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Resume: track the LaTeX source; the built PDF ships as public/atharva_mahajan_cv.pdf
+resume/source.pdf
+resume/*.aux
+resume/*.log
+resume/*.out
