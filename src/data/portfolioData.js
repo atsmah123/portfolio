@@ -18,28 +18,41 @@
 // -----------------------------------------------------------------------------
 export const projects = [
   {
-    title: 'Policy-DRIFT: Reward-Guided Generative Control of Turbulence',
-    category: 'AI4Science · Generative Models + Deep RL',
+    title: 'Policy-DRIFT: Dynamic Reward-Informed Flow Trajectory Steering',
+    category: 'NeurIPS 2026 · Generative Models + Deep RL',
     image: 'images/projects/policy-drift.jpg',
     featured: true,
     description:
-      'A conditional flow-matching model proposes reward-maximizing flow states; a lightweight RL policy learns to reach them. 48.95% drag reduction at 37× lower actuation energy.',
+      'Accepted to NeurIPS 2026. A conditional flow-matching model proposes reward-maximizing flow states; a lightweight RL policy learns to reach them. 48.95% drag reduction at 37× lower actuation energy.',
     longDescription:
-      'Most learned flow controllers ask a policy to discover both what a good flow state looks like and how to get there. Policy-DRIFT splits those jobs. A conditional flow-matching generative model is trained over a multi-regime flow manifold, and its sampling trajectories are steered by Terminal Reward Guidance — so the generator synthesizes target states that are simultaneously physically realizable and reward-maximizing. A small deep-RL policy is then trained only to track those targets. The result reaches 48.95% drag reduction at Re_τ = 180, a 16.2% improvement over the DRL benchmark, while spending 37× less actuation energy. The end-to-end PyTorch/GPU stack was built over 22,000+ DNS snapshot pairs, and the deployed controller runs from wall-only sensing with no generative model queries at inference.',
+      'Accepted to NeurIPS 2026 (camera-ready in preparation; the arXiv preprint is the current version). Most learned flow controllers ask a policy to discover both what a good flow state looks like and how to get there. Policy-DRIFT splits those jobs. A conditional flow-matching generative model is trained over a multi-regime flow manifold, and its sampling trajectories are steered by Terminal Reward Guidance — so the generator synthesizes target states that are simultaneously physically realizable and reward-maximizing. A small deep-RL policy is then trained only to track those targets. The result reaches 48.95% drag reduction at Re_τ = 180, a 16.2% improvement over the DRL benchmark, while spending 37× less actuation energy. The end-to-end PyTorch/GPU stack was built over 22,000+ DNS snapshot pairs, and the deployed controller runs from wall-only sensing with no generative model queries at inference.',
     techStack: ['Flow Matching', 'Guided Sampling', 'Deep RL', 'PyTorch', 'DNS'],
     liveUrl: 'https://arxiv.org/abs/2605.14022',
-    linkLabel: 'Read the Preprint',
+    linkLabel: 'Read the Paper (arXiv)',
   },
   {
-    title: 'Geometry-Generalizing Foundation Models for Flow Prediction',
-    category: 'AI4Science · Neural Surrogates',
+    title: 'CFD Foundation Models for Geometry-Generalizable Flow Prediction',
+    category: 'AI4Science · Foundation Models + Self-Supervised Learning',
     image: 'images/projects/meshfree.jpg',
+    featured: true,
     description:
-      'Surrogate models that transfer across geometries, turning a costly CFD simulation into a single model query.',
+      'A pretrained CFD surrogate that predicts flow on geometries it has never seen — zero-shot, with no per-case retraining.',
     longDescription:
-      'Conventional neural surrogates are retrained for every new geometry, which limits them to the design they were fitted to. This work develops foundation-style models that generalize across shapes, so a new configuration can be evaluated by querying the model rather than running a full CFD simulation. The aim is to compress design-space exploration — where the cost is dominated by re-simulating many candidate geometries — into fast inference over a single trained model.',
-    techStack: ['Foundation Models', 'Neural Surrogates', 'PyTorch', 'CFD', 'HPC'],
+      'Conventional neural surrogates are retrained for every new geometry, which pins them to the single design they were fitted to and makes them useless for exploring a design space. This work pretrains a CFD surrogate that generalizes across shapes instead. It pairs a joint-embedding predictive architecture (JEPA) — which learns flow representations by predicting in latent space rather than reconstructing pixels — with a mesh-density-preserving geometry encoding, so the model reads a shape without discarding the resolution the mesh spent where the physics is hardest. Preliminary results show zero-shot prediction on held-out geometries with no fine-tuning. The target is inference-time flow estimation at a fraction of solver cost, turning each new candidate design from a full CFD run into a single model query.',
+    techStack: ['Foundation Models', 'JEPA', 'Self-Supervised Learning', 'PyTorch', 'CFD'],
     liveUrl: '',
+  },
+  {
+    title: 'Uncertainty-Aware Airfoil Pressure Reconstruction from Sparse Taps',
+    category: 'Generative Models · Uncertainty Quantification',
+    image: 'images/projects/cfm-airfoil.png',
+    description:
+      'A conditional flow-matching model rebuilds a full airfoil pressure field from as few as five sensors — and says how confident it is.',
+    longDescription:
+      'Wind-tunnel and flight-test models carry only a handful of pressure taps, because each one needs structural access and a transducer. That leaves perhaps 10–100 measurements standing in for a field with thousands of meaningful degrees of freedom. Classical interpolation fills the gaps but cannot say how much to trust the result — a problem when the missing region is the leading-edge suction peak that dominates lift. This project treats reconstruction as sampling from a posterior instead of fitting a curve. A conditional flow-matching model learns the distribution of pressure fields consistent with the sparse readings, so drawing an ensemble gives both a reconstruction and calibrated error bars. Sparse taps are encoded by a DeepSets network with learned positional attention, which accepts sensors in any arrangement and learns which positions carry the most information; a 1D convolutional UNet vector field is conditioned on that encoding via FiLM at every scale. On the AirfRANS benchmark it reaches 183 Pa mean absolute error at 10 taps — 14% of the pressure standard deviation — recovers lift and drag to ΔC_L = 0.094 and ΔC_D = 0.015, and stays well-calibrated at 97% coverage within ±2σ. A controlled ablation against randomized tap placement puts a number on what it costs to not choose where sensors go: 25–35% higher error.',
+    techStack: ['Flow Matching', 'DeepSets', 'Uncertainty Quantification', 'PyTorch', 'AirfRANS'],
+    liveUrl: 'https://github.com/atsmah123/cfm-airfoil-pressure',
+    linkLabel: 'View the Code',
   },
   {
     title: 'Upstream History and Local Disequilibration in APG TBLs',
@@ -97,24 +110,24 @@ export const projects = [
 // -----------------------------------------------------------------------------
 export const experience = [
   {
-    role: 'Policy-DRIFT — Reward-Guided Generative Control of Turbulence',
+    role: 'Policy-DRIFT — Dynamic Reward-Informed Flow Trajectory Steering (NeurIPS 2026)',
     date: 'Aug 2025 — Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
-      'First author. Trained a conditional flow-matching model over a multi-regime flow manifold and steered its sampling with Terminal Reward Guidance, then trained a lightweight deep-RL policy to track the generated targets — reaching 48.95% drag reduction at 37× lower actuation energy. Advised by Prof. Ricardo Vinuesa.',
+      'First author; accepted to NeurIPS 2026. Trained a conditional flow-matching model over a multi-regime flow manifold and steered its sampling with Terminal Reward Guidance, then trained a lightweight deep-RL policy to track the generated targets — reaching 48.95% drag reduction at 37× lower actuation energy. Advised by Prof. Ricardo Vinuesa.',
     technologies: ['Flow Matching', 'Guided Sampling', 'Deep RL', 'PyTorch', 'DNS'],
   },
   {
-    role: 'Geometry-Generalizing Foundation Models for Flow Prediction',
-    date: 'Aug 2025 — Present',
+    role: 'CFD Foundation Models for Geometry-Generalizable Flow Prediction',
+    date: 'Jul 2026 — Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
-      'Developing surrogate models that generalize across geometries, so evaluating a new design becomes a model query rather than a full CFD simulation.',
-    technologies: ['Foundation Models', 'Neural Surrogates', 'PyTorch', 'CFD'],
+      'Developing a pretrained CFD surrogate that generalizes across unseen geometries without per-case retraining, pairing a joint-embedding predictive architecture (JEPA) with a mesh-density-preserving geometry encoding. Preliminary results show zero-shot prediction on held-out geometries without fine-tuning, targeting inference-time flow estimation at a fraction of solver cost.',
+    technologies: ['Foundation Models', 'JEPA', 'Self-Supervised Learning', 'PyTorch', 'CFD'],
   },
   {
     role: 'Research & Teaching Assistant — Deep Learning for Fluid Mechanics',
@@ -179,12 +192,12 @@ export const experience = [
 // -----------------------------------------------------------------------------
 export const publications = [
   {
-    title:
-      'Policy-DRIFT: Reward-Guided Generative Control of Wall-Bounded Turbulence',
-    authors: 'A. Mahajan, et al.',
-    venue: 'arXiv:2605.14022',
+    title: 'Policy-DRIFT: Dynamic Reward-Informed Flow Trajectory Steering',
+    authors: 'A. Mahajan, A. Vishwasrao, Y. Wang, R. Vinuesa',
+    venue:
+      'Advances in Neural Information Processing Systems (NeurIPS) 2026 · Poster — to appear',
     year: '2026',
-    type: 'Preprint',
+    type: 'NeurIPS 2026',
     url: 'https://arxiv.org/abs/2605.14022',
     abstract:
       'Introduces a control framework that decouples target synthesis from actuation: a conditional flow-matching model is trained over a multi-regime flow manifold and steered by Terminal Reward Guidance to generate physically realizable, reward-maximizing flow states, which a lightweight deep-RL policy then learns to track. Achieves 48.95% drag reduction at Re_τ = 180 — a 16.2% improvement over the DRL benchmark — at 37× lower actuation energy, with the deployed controller running from wall-only sensing.',

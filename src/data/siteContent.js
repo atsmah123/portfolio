@@ -20,7 +20,7 @@ export const profile = {
 
   tagline: 'MS Mechanical Engineering | Generative Models & RL for Physical Systems',
   intro:
-    'Building generative models and closed-loop control policies for high-dimensional physical systems — from reward-guided flow matching that cuts drag by 48.95%, to geometry-generalizing surrogates that replace costly CFD runs with a model query.',
+    'Building generative models, foundation models and closed-loop control policies for high-dimensional physical systems — from reward-guided flow matching that cuts drag by 48.95% (NeurIPS 2026), to CFD foundation models that predict flow on unseen geometries zero-shot.',
   institution: {
     name: 'University of Michigan',
     url: 'https://umich.edu',
@@ -49,8 +49,8 @@ export const coreSkills = [
   },
   {
     icon: 'ScanSearch',
-    area: 'Surrogates & Explainability',
-    items: ['Neural Surrogates', 'Reduced-Order Modeling', 'SHAP', 'XAI'],
+    area: 'Foundation Models & Surrogates',
+    items: ['Foundation Models', 'JEPA', 'Neural Surrogates', 'Reduced-Order Modeling', 'XAI'],
   },
   {
     icon: 'Cpu',
@@ -79,8 +79,8 @@ export const about = {
   heading: 'About',
   paragraphs: [
     "I'm a graduate researcher at the **University of Michigan** working on **AI for Science** — building generative models and closed-loop control policies for high-dimensional physical systems.",
-    'My current work, **Policy-DRIFT**, trains a **conditional flow-matching** model over a multi-regime flow manifold and steers its sampling trajectories with **reward guidance**, so the generator proposes flow states that are both physically realizable and reward-maximizing. A lightweight **deep-RL policy** then learns to reach them — reaching **48.95% drag reduction** at **37× lower actuation energy** than the DRL benchmark.',
-    'In parallel I work on **geometry-generalizing foundation models** for fluid flow: surrogates that transfer across shapes rather than being retrained per case, so a design query becomes a **model query instead of a costly CFD run**.',
+    'My current work, **Policy-DRIFT** — first-authored and **accepted to NeurIPS 2026** — trains a **conditional flow-matching** model over a multi-regime flow manifold and steers its sampling trajectories with **reward guidance**, so the generator proposes flow states that are both physically realizable and reward-maximizing. A lightweight **deep-RL policy** then learns to reach them — reaching **48.95% drag reduction** at **37× lower actuation energy** than the DRL benchmark.',
+    'In parallel I build **CFD foundation models** that generalize across geometries. Pairing a **joint-embedding predictive architecture (JEPA)** with a mesh-density-preserving geometry encoding, the surrogate predicts flow on shapes it has never seen — **zero-shot, with no per-case retraining** — so a design query becomes a **model query instead of a costly CFD run**.',
     'Both threads share a conviction — let a learned model say *where a system should go*, and let a small controller or a single forward pass work out the rest. I also use **explainable AI** to interrogate what those models have actually learned.',
     'That sits on a deep computational foundation: published research in **turbulent boundary layers**, a **450× CUDA-accelerated** flow solver, and large-scale DNS on HPC systems. I know the physics my models are learning.',
     'As co-founder of **Applied Aero Labs**, I took a hardware product from concept to grant-funded prototype, pairing technical depth with an entrepreneurial streak.',
@@ -88,7 +88,7 @@ export const about = {
   // `value` is the number counted up to; `suffix`/`prefix` wrap it.
   stats: [
     { icon: 'Globe', label: 'International Research Collaborations', value: 4 },
-    { icon: 'BookOpen', label: 'Publications & Preprints', value: 2 },
+    { icon: 'BookOpen', label: 'Peer-Reviewed Publications', value: 2 },
     { icon: 'Award', label: 'Grant-Funded Venture Co-Founded', value: 1 },
   ],
 }
@@ -109,7 +109,7 @@ export const sections = {
   },
   publications: {
     heading: 'Publications',
-    subheading: 'Peer-reviewed articles and preprints.',
+    subheading: 'Peer-reviewed conference and journal papers.',
   },
   contact: {
     heading: 'Contact',
