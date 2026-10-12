@@ -28,3 +28,6 @@ resume/source.pdf
 resume/*.aux
 resume/*.log
 resume/*.out
+
+# Vendored agent skill, pinned in skills-lock.json (restore: see CLAUDE.md)
+.claude/skills/design-taste-frontend/
