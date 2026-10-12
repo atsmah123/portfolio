@@ -11,8 +11,11 @@
  */
 
 // -----------------------------------------------------------------------------
-// PROJECTS — shown as cards; clicking one opens a detail modal.
-//   featured: true  → card spans two columns on large screens.
+// PROJECTS: clicking one opens a detail view with the long description.
+//   The FIRST project is shown large as the lead; the rest pair up below it,
+//   alternating wide and narrow, so order matters.
+//   fit: 'contain'  → for plots/diagrams: shows the whole figure on a light mat
+//                     instead of cropping it. Leave it out for photos.
 //   liveUrl        → omit or set '' to hide the link button in the modal.
 //   linkLabel      → text on that button (default: 'View Project').
 // -----------------------------------------------------------------------------
@@ -21,11 +24,11 @@ export const projects = [
     title: 'Policy-DRIFT: Dynamic Reward-Informed Flow Trajectory Steering',
     category: 'NeurIPS 2026 · Generative Models + Deep RL',
     image: 'images/projects/policy-drift.jpg',
-    featured: true,
+    fit: 'contain',
     description:
       'Accepted to NeurIPS 2026. A conditional flow-matching model proposes reward-maximizing flow states; a lightweight RL policy learns to reach them. 48.95% drag reduction at 37× lower actuation energy.',
     longDescription:
-      'Accepted to NeurIPS 2026 (camera-ready in preparation; the arXiv preprint is the current version). Most learned flow controllers ask a policy to discover both what a good flow state looks like and how to get there. Policy-DRIFT splits those jobs. A conditional flow-matching generative model is trained over a multi-regime flow manifold, and its sampling trajectories are steered by Terminal Reward Guidance — so the generator synthesizes target states that are simultaneously physically realizable and reward-maximizing. A small deep-RL policy is then trained only to track those targets. The result reaches 48.95% drag reduction at Re_τ = 180, a 16.2% improvement over the DRL benchmark, while spending 37× less actuation energy. The end-to-end PyTorch/GPU stack was built over 22,000+ DNS snapshot pairs, and the deployed controller runs from wall-only sensing with no generative model queries at inference.',
+      'Accepted to NeurIPS 2026 (camera-ready in preparation; the arXiv preprint is the current version). Most learned flow controllers ask a policy to discover both what a good flow state looks like and how to get there. Policy-DRIFT splits those jobs. A conditional flow-matching generative model is trained over a multi-regime flow manifold, and its sampling trajectories are steered by Terminal Reward Guidance, so the generator synthesizes target states that are simultaneously physically realizable and reward-maximizing. A small deep-RL policy is then trained only to track those targets. The result reaches 48.95% drag reduction at Re_τ = 180, a 16.2% improvement over the DRL benchmark, while spending 37× less actuation energy. The end-to-end PyTorch/GPU stack was built over 22,000+ DNS snapshot pairs, and the deployed controller runs from wall-only sensing with no generative model queries at inference.',
     techStack: ['Flow Matching', 'Guided Sampling', 'Deep RL', 'PyTorch', 'DNS'],
     liveUrl: 'https://arxiv.org/abs/2605.14022',
     linkLabel: 'Read the Paper (arXiv)',
@@ -34,11 +37,10 @@ export const projects = [
     title: 'CFD Foundation Models for Geometry-Generalizable Flow Prediction',
     category: 'AI4Science · Foundation Models + Self-Supervised Learning',
     image: 'images/projects/meshfree.jpg',
-    featured: true,
     description:
-      'A pretrained CFD surrogate that predicts flow on geometries it has never seen — zero-shot, with no per-case retraining.',
+      'A pretrained CFD surrogate that predicts flow on geometries it has never seen: zero-shot, with no per-case retraining.',
     longDescription:
-      'Conventional neural surrogates are retrained for every new geometry, which pins them to the single design they were fitted to and makes them useless for exploring a design space. This work pretrains a CFD surrogate that generalizes across shapes instead. It pairs a joint-embedding predictive architecture (JEPA) — which learns flow representations by predicting in latent space rather than reconstructing pixels — with a mesh-density-preserving geometry encoding, so the model reads a shape without discarding the resolution the mesh spent where the physics is hardest. Preliminary results show zero-shot prediction on held-out geometries with no fine-tuning. The target is inference-time flow estimation at a fraction of solver cost, turning each new candidate design from a full CFD run into a single model query.',
+      'Conventional neural surrogates are retrained for every new geometry, which pins them to the single design they were fitted to and makes them useless for exploring a design space. This work pretrains a CFD surrogate that generalizes across shapes instead. It pairs a joint-embedding predictive architecture (JEPA), which learns flow representations by predicting in latent space rather than reconstructing pixels, with a mesh-density-preserving geometry encoding, so the model reads a shape without discarding the resolution the mesh spent where the physics is hardest. Preliminary results show zero-shot prediction on held-out geometries with no fine-tuning. The target is inference-time flow estimation at a fraction of solver cost, turning each new candidate design from a full CFD run into a single model query.',
     techStack: ['Foundation Models', 'JEPA', 'Self-Supervised Learning', 'PyTorch', 'CFD'],
     liveUrl: '',
   },
@@ -46,10 +48,11 @@ export const projects = [
     title: 'Uncertainty-Aware Airfoil Pressure Reconstruction from Sparse Taps',
     category: 'Generative Models · Uncertainty Quantification',
     image: 'images/projects/cfm-airfoil.png',
+    fit: 'contain',
     description:
-      'A conditional flow-matching model rebuilds a full airfoil pressure field from as few as five sensors — and says how confident it is.',
+      'A conditional flow-matching model rebuilds a full airfoil pressure field from as few as five sensors, and says how confident it is.',
     longDescription:
-      'Wind-tunnel and flight-test models carry only a handful of pressure taps, because each one needs structural access and a transducer. That leaves perhaps 10–100 measurements standing in for a field with thousands of meaningful degrees of freedom. Classical interpolation fills the gaps but cannot say how much to trust the result — a problem when the missing region is the leading-edge suction peak that dominates lift. This project treats reconstruction as sampling from a posterior instead of fitting a curve. A conditional flow-matching model learns the distribution of pressure fields consistent with the sparse readings, so drawing an ensemble gives both a reconstruction and calibrated error bars. Sparse taps are encoded by a DeepSets network with learned positional attention, which accepts sensors in any arrangement and learns which positions carry the most information; a 1D convolutional UNet vector field is conditioned on that encoding via FiLM at every scale. On the AirfRANS benchmark it reaches 183 Pa mean absolute error at 10 taps — 14% of the pressure standard deviation — recovers lift and drag to ΔC_L = 0.094 and ΔC_D = 0.015, and stays well-calibrated at 97% coverage within ±2σ. A controlled ablation against randomized tap placement puts a number on what it costs to not choose where sensors go: 25–35% higher error.',
+      'Wind-tunnel and flight-test models carry only a handful of pressure taps, because each one needs structural access and a transducer. That leaves perhaps 10-100 measurements standing in for a field with thousands of meaningful degrees of freedom. Classical interpolation fills the gaps but cannot say how much to trust the result. That matters when the missing region is the leading-edge suction peak that dominates lift. This project treats reconstruction as sampling from a posterior instead of fitting a curve. A conditional flow-matching model learns the distribution of pressure fields consistent with the sparse readings, so drawing an ensemble gives both a reconstruction and calibrated error bars. Sparse taps are encoded by a DeepSets network with learned positional attention, which accepts sensors in any arrangement and learns which positions carry the most information; a 1D convolutional UNet vector field is conditioned on that encoding via FiLM at every scale. On the AirfRANS benchmark it reaches 183 Pa mean absolute error at 10 taps (14% of the pressure standard deviation), recovers lift and drag to ΔC_L = 0.094 and ΔC_D = 0.015, and stays well-calibrated at 97% coverage within ±2σ. A controlled ablation against randomized tap placement puts a number on what it costs to not choose where sensors go: 25-35% higher error.',
     techStack: ['Flow Matching', 'DeepSets', 'Uncertainty Quantification', 'PyTorch', 'AirfRANS'],
     liveUrl: 'https://github.com/atsmah123/cfm-airfoil-pressure',
     linkLabel: 'View the Code',
@@ -58,6 +61,7 @@ export const projects = [
     title: 'Upstream History and Local Disequilibration in APG TBLs',
     category: 'Published Research',
     image: 'images/projects/turb.png',
+    fit: 'contain',
     description:
       'Peer-reviewed study on turbulence behaviour in adverse pressure gradient boundary layers.',
     longDescription:
@@ -70,10 +74,11 @@ export const projects = [
     title: 'CUDA-Accelerated Meshfree CFD Solver',
     category: 'High-Performance Computing',
     image: 'images/projects/airfoil.png',
+    fit: 'contain',
     description:
       'GPU-parallelized meshfree Euler solver driven to a 450× speedup over the CPU baseline.',
     longDescription:
-      'Developed a 3D meshfree Euler solver in Fortran and CUDA, then drove a 450× GPU speedup over the CPU baseline through kernel restructuring, memory-coalescing, and NVIDIA Nsight-guided profiling. The work was as much performance engineering as numerics — finding where a meshfree formulation maps badly onto GPU memory hierarchies, and restructuring it until it did.',
+      'Developed a 3D meshfree Euler solver in Fortran and CUDA, then drove a 450× GPU speedup over the CPU baseline through kernel restructuring, memory-coalescing, and NVIDIA Nsight-guided profiling. The work was as much performance engineering as numerics: finding where a meshfree formulation maps badly onto GPU memory hierarchies, and restructuring it until it did.',
     techStack: ['CUDA', 'Fortran', 'GPU Computing', 'CFD'],
     liveUrl: '',
   },
@@ -102,26 +107,26 @@ export const projects = [
 
 // -----------------------------------------------------------------------------
 // EXPERIENCE — grouped on the page by `org`, newest group first.
-//   Roles sharing an `org` value are collapsed into one expandable chapter,
+//   Roles sharing an `org` value are listed together under one heading,
 //   so three BITS roles read as one chapter rather than three separate items.
 //   org      → the heading text for the group (must match exactly to group)
 //   orgMeta  → small label beside the org name (city, country)
-//   current  → adds a "Current" badge and a pulsing dot
+//   current  → marks the role as current
 // -----------------------------------------------------------------------------
 export const experience = [
   {
-    role: 'Policy-DRIFT — Dynamic Reward-Informed Flow Trajectory Steering (NeurIPS 2026)',
-    date: 'Aug 2025 — Present',
+    role: 'Policy-DRIFT: Dynamic Reward-Informed Flow Trajectory Steering (NeurIPS 2026)',
+    date: 'Aug 2025 - Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
     description:
-      'First author; accepted to NeurIPS 2026. Trained a conditional flow-matching model over a multi-regime flow manifold and steered its sampling with Terminal Reward Guidance, then trained a lightweight deep-RL policy to track the generated targets — reaching 48.95% drag reduction at 37× lower actuation energy. Advised by Prof. Ricardo Vinuesa.',
+      'First author; accepted to NeurIPS 2026. Trained a conditional flow-matching model over a multi-regime flow manifold and steered its sampling with Terminal Reward Guidance, then trained a lightweight deep-RL policy to track the generated targets, reaching 48.95% drag reduction at 37× lower actuation energy. Advised by Prof. Ricardo Vinuesa.',
     technologies: ['Flow Matching', 'Guided Sampling', 'Deep RL', 'PyTorch', 'DNS'],
   },
   {
     role: 'CFD Foundation Models for Geometry-Generalizable Flow Prediction',
-    date: 'Jul 2026 — Present',
+    date: 'Jul 2026 - Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
@@ -130,8 +135,8 @@ export const experience = [
     technologies: ['Foundation Models', 'JEPA', 'Self-Supervised Learning', 'PyTorch', 'CFD'],
   },
   {
-    role: 'Research & Teaching Assistant — Deep Learning for Fluid Mechanics',
-    date: 'Jan 2025 — Present',
+    role: 'Research & Teaching Assistant, Deep Learning for Fluid Mechanics',
+    date: 'Jan 2025 - Present',
     org: 'University of Michigan',
     orgMeta: 'Ann Arbor, MI',
     current: true,
@@ -141,7 +146,7 @@ export const experience = [
   },
   {
     role: 'Upstream Pressure-History Effects on Adverse-Pressure-Gradient TBLs',
-    date: 'Jun 2024 — Jun 2025',
+    date: 'Jun 2024 - Jun 2025',
     org: 'KTH Royal Institute of Technology',
     orgMeta: 'Stockholm, Sweden',
     description:
@@ -150,7 +155,7 @@ export const experience = [
   },
   {
     role: 'Co-founder, Applied Aero Labs',
-    date: 'Apr 2023 — May 2025',
+    date: 'Apr 2023 - May 2025',
     org: 'Applied Aero Labs',
     orgMeta: 'India',
     description:
@@ -159,7 +164,7 @@ export const experience = [
   },
   {
     role: 'Computational Analysis of Autophoretic Particles',
-    date: 'May 2023 — May 2024',
+    date: 'May 2023 - May 2024',
     org: 'BITS Pilani',
     orgMeta: 'Pilani, India',
     description:
@@ -168,7 +173,7 @@ export const experience = [
   },
   {
     role: 'CUDA-Accelerated Meshfree CFD Solver',
-    date: 'Aug 2022 — May 2023',
+    date: 'Aug 2022 - May 2023',
     org: 'BITS Pilani',
     orgMeta: 'Pilani, India',
     description:
@@ -177,7 +182,7 @@ export const experience = [
   },
   {
     role: 'Hydrodynamic Study of Underwater Pitching Airfoil',
-    date: 'Feb 2021 — Dec 2023',
+    date: 'Feb 2021 - Dec 2023',
     org: 'BITS Pilani',
     orgMeta: 'Pilani, India',
     description:
@@ -195,12 +200,12 @@ export const publications = [
     title: 'Policy-DRIFT: Dynamic Reward-Informed Flow Trajectory Steering',
     authors: 'A. Mahajan, A. Vishwasrao, Y. Wang, R. Vinuesa',
     venue:
-      'Advances in Neural Information Processing Systems (NeurIPS) 2026 · Poster — to appear',
+      'Advances in Neural Information Processing Systems (NeurIPS) 2026, poster (to appear)',
     year: '2026',
     type: 'NeurIPS 2026',
     url: 'https://arxiv.org/abs/2605.14022',
     abstract:
-      'Introduces a control framework that decouples target synthesis from actuation: a conditional flow-matching model is trained over a multi-regime flow manifold and steered by Terminal Reward Guidance to generate physically realizable, reward-maximizing flow states, which a lightweight deep-RL policy then learns to track. Achieves 48.95% drag reduction at Re_τ = 180 — a 16.2% improvement over the DRL benchmark — at 37× lower actuation energy, with the deployed controller running from wall-only sensing.',
+      'Introduces a control framework that decouples target synthesis from actuation: a conditional flow-matching model is trained over a multi-regime flow manifold and steered by Terminal Reward Guidance to generate physically realizable, reward-maximizing flow states, which a lightweight deep-RL policy then learns to track. Achieves 48.95% drag reduction at Re_τ = 180 (a 16.2% improvement over the DRL benchmark) at 37× lower actuation energy, with the deployed controller running from wall-only sensing.',
   },
   {
     title:

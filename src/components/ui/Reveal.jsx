@@ -10,7 +10,7 @@ import { motion, useReducedMotion } from 'framer-motion'
  * Automatically disabled when the visitor has "reduce motion" turned on.
  */
 const offsets = {
-  up: { x: 0, y: 28 },
+  up: { x: 0, y: 20 },
   down: { x: 0, y: -28 },
   left: { x: 34, y: 0 },
   right: { x: -34, y: 0 },
@@ -39,7 +39,7 @@ export const Reveal = ({
       initial={{ opacity: 0, ...from }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </MotionTag>
@@ -80,7 +80,7 @@ export const RevealItem = ({ children, className = '' }) => {
       className={className}
       variants={{
         hidden: { opacity: 0, y: 24 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
       }}
     >
       {children}

@@ -1,15 +1,15 @@
 import React from 'react'
-import { ExternalLink, BookText } from 'lucide-react'
+import { ArrowUpRight, ChevronDown } from 'lucide-react'
 import { publications, authorName } from '../data/portfolioData'
 import { sections } from '../data/siteContent'
 import SectionHeading from './ui/SectionHeading'
 import Reveal from './ui/Reveal'
 
-/** Bolds your own name within the author list. */
+/** Emphasises your own name within the author list. */
 const renderAuthors = (authors) =>
   authors.split(new RegExp(`(${authorName})`, 'g')).map((part, i) =>
     part === authorName ? (
-      <span key={i} className="font-semibold text-primary">
+      <span key={i} className="font-medium text-primary">
         {part}
       </span>
     ) : (
@@ -24,59 +24,59 @@ const Publications = () => {
     <section id="publications" className="section-spacing">
       <div className="section-shell">
         <SectionHeading
-          eyebrow="Research Output"
           title={sections.publications.heading}
           subtitle={sections.publications.subheading}
         />
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {publications.map((pub, index) => (
-            <Reveal key={pub.title} delay={index * 0.08}>
-              <article className="surface-card group p-5 sm:p-7">
-                <div className="flex gap-4 sm:gap-5">
-                  {/* Icon badge */}
-                  <div className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20 sm:flex">
-                    <BookText size={19} strokeWidth={1.8} />
-                  </div>
+            <Reveal key={pub.title} delay={index * 0.06}>
+              <article className="rounded-xl border border-border bg-surface p-6 sm:p-10">
+                <p className="font-mono text-xs">
+                  <span className="text-accent">{pub.type}</span>
+                  <span className="ml-3 text-muted">{pub.year}</span>
+                </p>
 
-                  <div className="min-w-0 flex-1">
-                    {/* Meta row */}
-                    <div className="mb-2.5 flex flex-wrap items-center gap-2">
-                      <span className="chip">{pub.type}</span>
-                      <span className="font-manrope text-xs font-medium text-muted">
-                        {pub.year}
-                      </span>
-                    </div>
+                <h3 className="mt-4 max-w-[34ch] text-xl font-semibold leading-snug tracking-tight text-primary sm:text-2xl lg:text-3xl">
+                  {pub.title}
+                </h3>
 
-                    <h3 className="font-montserrat text-base font-bold leading-snug text-primary transition-colors duration-300 group-hover:text-accent sm:text-lg">
-                      {pub.title}
-                    </h3>
+                <p className="mt-4 text-[15px] text-secondary">{renderAuthors(pub.authors)}</p>
+                <p className="mt-1 text-[15px] italic text-muted">{pub.venue}</p>
 
-                    <p className="mt-2 font-manrope text-sm text-secondary">
-                      {renderAuthors(pub.authors)}
-                    </p>
-
-                    <p className="mt-1 font-manrope text-sm italic text-muted">{pub.venue}</p>
-
-                    {pub.abstract && (
-                      <p className="mt-3.5 border-l-2 border-border pl-4 font-manrope text-sm leading-relaxed text-secondary">
-                        {pub.abstract}
-                      </p>
-                    )}
-
-                    {pub.url && (
-                      <a
-                        href={pub.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-1.5 font-manrope text-sm font-semibold text-accent transition-colors hover:text-accent-secondary"
-                      >
-                        Read the paper
-                        <ExternalLink size={14} />
-                      </a>
-                    )}
-                  </div>
+                <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
+                  {pub.url && (
+                    <a
+                      href={pub.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-1.5 text-sm font-medium text-accent"
+                    >
+                      Read the paper
+                      <ArrowUpRight
+                        size={16}
+                        strokeWidth={1.75}
+                        className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
+                    </a>
+                  )}
                 </div>
+
+                {pub.abstract && (
+                  <details className="group/abs mt-5 border-t border-border pt-5">
+                    <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-secondary transition-colors hover:text-primary [&::-webkit-details-marker]:hidden">
+                      Abstract
+                      <ChevronDown
+                        size={16}
+                        strokeWidth={1.75}
+                        className="transition-transform duration-300 group-open/abs:rotate-180"
+                      />
+                    </summary>
+                    <p className="mt-3 max-w-[70ch] text-[15px] leading-relaxed text-secondary">
+                      {pub.abstract}
+                    </p>
+                  </details>
+                )}
               </article>
             </Reveal>
           ))}

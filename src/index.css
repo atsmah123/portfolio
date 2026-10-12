@@ -4,35 +4,61 @@
 
 /* =============================================================================
    DESIGN TOKENS
-   Change a colour here and it updates everywhere on the site.
+   Change a colour here and it updates everywhere on the site. The page follows
+   the visitor's light/dark system setting; both palettes are defined below.
+
+   Shape rule: containers (figures, panels, the modal) use rounded-xl (12px);
+   anything you can click that is a button or tag is a full pill.
    ========================================================================== */
 :root {
-  /* Surfaces — darkest to lightest */
-  --color-background: #08090c;
-  --color-surface: #0e1015;
-  --color-card: #12151b;
-  --color-elevated: #171b23;
+  /* Surfaces */
+  --color-background: #f7f7f8;
+  --color-surface: #fdfdfd;
+  /* Mat behind the white-background research figures. Matches the figures'
+     own white so they sit seamlessly on the card. */
+  --color-plate: #fdfdfd;
+  --figure-filter: none;
 
   /* Text */
-  --color-primary: #f4f6fa;
-  --color-secondary: #9aa4b5;
-  --color-muted: #6b7484;
+  --color-primary: #18181b;
+  --color-secondary: #4a4a52;
+  --color-muted: #6b6b74;
 
-  /* Accents */
-  --color-accent: #4a9eff;
-  --color-accent-secondary: #5eb3c7;
-  --color-accent-soft: rgba(74, 158, 255, 0.12);
+  /* The one accent colour */
+  --color-accent: #bf4a1c;
+  --color-on-accent: #fbfbfb;
 
   /* Lines */
-  --color-border: rgba(148, 163, 184, 0.14);
-  --color-border-strong: rgba(74, 158, 255, 0.45);
-
-  /* Effects */
-  --glow: rgba(74, 158, 255, 0.28);
-  --shadow-card: 0 18px 40px -18px rgba(0, 0, 0, 0.9);
+  --color-border: #e2e2e6;
+  --color-border-strong: #c9c9cf;
 
   /* Fixed navbar height, used to offset scroll anchors */
-  --nav-offset: 104px;
+  --nav-offset: 80px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #111113;
+    --color-surface: #18181b;
+    /* Figures stay on a light mat in dark mode (they are white-background
+       plots) but are dimmed slightly so they don't glare. */
+    --color-plate: #e9e9eb;
+    --figure-filter: brightness(0.915);
+
+    --color-primary: #ececef;
+    --color-secondary: #b4b4bc;
+    --color-muted: #8e8e98;
+
+    --color-accent: #f08a5d;
+    --color-on-accent: #111113;
+
+    --color-border: #26262b;
+    --color-border-strong: #3a3a41;
+
+    color-scheme: dark;
+  }
 }
 
 /* =============================================================================
@@ -48,173 +74,87 @@ html {
 body {
   background-color: var(--color-background);
   color: var(--color-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-feature-settings: 'ss01';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Ambient background wash — fixed so it doesn't scroll with content */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(60rem 60rem at 15% 0%, rgba(74, 158, 255, 0.07), transparent 60%),
-    radial-gradient(50rem 50rem at 85% 100%, rgba(94, 179, 199, 0.06), transparent 60%);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: -0.03em;
-}
-
-.font-montserrat { font-family: 'Montserrat', 'Manrope', sans-serif; }
-.font-manrope { font-family: 'Manrope', 'Montserrat', sans-serif; }
-
 ::selection {
-  background: rgba(74, 158, 255, 0.3);
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 /* Visible keyboard focus, hidden for mouse users */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--color-background); }
-::-webkit-scrollbar-thumb {
-  background: #262c38;
-  border-radius: 99px;
-  border: 2px solid var(--color-background);
-}
-::-webkit-scrollbar-thumb:hover { background: #333b4a; }
 
 /* =============================================================================
    REUSABLE COMPONENT CLASSES
    ========================================================================== */
 @layer components {
-  /* Standard page section padding + max width */
+  /* Standard page section width + side padding */
   .section-shell {
     @apply relative mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
   .section-spacing {
-    @apply py-20 sm:py-24 lg:py-32;
+    @apply py-20 sm:py-28;
   }
 
-  /* Gradient section heading */
+  /* Section heading */
   .section-title {
-    @apply font-montserrat text-4xl font-black tracking-tighter sm:text-5xl lg:text-6xl;
-    background: linear-gradient(100deg, #ffffff 10%, var(--color-accent) 55%, var(--color-accent-secondary) 95%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    /* Stops descenders (g, y, p) getting clipped by background-clip */
-    padding-bottom: 0.12em;
+    @apply text-3xl font-semibold tracking-tight text-primary sm:text-4xl lg:text-5xl;
+    letter-spacing: -0.035em;
   }
 
-  /* Small uppercase label above a heading */
-  .eyebrow {
-    @apply font-manrope text-xs font-semibold uppercase tracking-[0.22em];
-    color: var(--color-accent);
+  /* Small mono metadata: dates, venues, categories */
+  .meta {
+    @apply font-mono text-xs text-muted;
   }
 
-  /* Card surface used across projects, experience, stats */
-  .surface-card {
-    background: linear-gradient(160deg, var(--color-card), var(--color-surface));
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-card);
-    @apply rounded-2xl;
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .surface-card:hover {
-    border-color: var(--color-border-strong);
-    box-shadow: 0 22px 50px -20px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(74, 158, 255, 0.08);
-  }
-
-  /* Technology / skill pill */
-  .chip {
-    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium;
-    background: var(--color-accent-soft);
-    color: var(--color-accent);
-    border: 1px solid rgba(74, 158, 255, 0.22);
-  }
-
-  /* Frosted glass — navbar, hero info card */
-  .glass {
-    background: rgba(18, 21, 27, 0.62);
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid var(--color-border);
-  }
-
-  /* Primary filled button */
+  /* Filled button in the accent colour */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
-    background: linear-gradient(120deg, var(--color-accent), var(--color-accent-secondary));
-    color: #05070a;
-    box-shadow: 0 10px 30px -10px var(--glow);
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 38px -12px var(--glow);
-  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:active { transform: scale(0.98); }
 
   /* Outline button */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
-    color: var(--color-primary);
-    border: 1px solid var(--color-border-strong);
-    background: rgba(74, 158, 255, 0.05);
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border px-5 py-2.5 text-sm font-medium text-primary;
+    border-color: var(--color-border-strong);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease;
   }
   .btn-ghost:hover {
-    background: rgba(74, 158, 255, 0.12);
-    transform: translateY(-2px);
+    border-color: var(--color-primary);
+  }
+  .btn-ghost:active { transform: scale(0.98); }
+
+  /* Technology tag (used in the project detail view) */
+  .chip {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[11px] text-secondary;
+    border-color: var(--color-border-strong);
   }
 
-  /* Thin accent rule under section titles */
-  .title-rule {
-    @apply h-px w-24 rounded-full;
-    background: linear-gradient(90deg, var(--color-accent), transparent);
+  /* Figure mat for research images */
+  .figure-plate {
+    background: var(--color-plate);
   }
-}
-
-/* =============================================================================
-   ANIMATIONS
-   ========================================================================== */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-}
-.float-animation { animation: float 7s ease-in-out infinite; }
-
-@keyframes drift {
-  0% { transform: translateX(-8%); opacity: 0; }
-  15%, 85% { opacity: 1; }
-  100% { transform: translateX(108%); opacity: 0; }
-}
-
-@keyframes pulseRing {
-  0% { transform: scale(0.9); opacity: 0.7; }
-  70% { transform: scale(1.5); opacity: 0; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-.pulse-ring { animation: pulseRing 2.4s cubic-bezier(0.24, 0.6, 0.35, 1) infinite; }
-
-/* Slow spin for the hero's decorative vortex rings */
-@keyframes spinSlow {
-  to { transform: rotate(360deg); }
+  .figure-plate img {
+    filter: var(--figure-filter);
+  }
 }
 
 /* =============================================================================
    ACCESSIBILITY
-   Honour the OS "reduce motion" setting — disables all decorative animation.
+   Honour the OS "reduce motion" setting: disables all decorative animation.
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

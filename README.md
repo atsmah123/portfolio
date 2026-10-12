@@ -6,6 +6,7 @@ learning, and optimization.
 **Live site:** https://atsmah123.github.io/portfolio/
 
 Built with React 18, Vite, Tailwind CSS, Framer Motion and Lucide icons.
+Type is Geist and Geist Mono, self-hosted via `@fontsource-variable`.
 
 ---
 
@@ -61,14 +62,13 @@ portfolio-source/
 │   │   └── portfolioData.js     ← projects, experience, publications
 │   │
 │   ├── components/
-│   │   ├── Navbar.jsx  Hero.jsx  About.jsx
+│   │   ├── Navbar.jsx  Hero.jsx  Highlights.jsx  About.jsx
 │   │   ├── Experience.jsx  Projects.jsx
 │   │   ├── Publications.jsx  Contact.jsx
 │   │   └── ui/                  ← small reusable pieces
 │   │       ├── Reveal.jsx       ← scroll-in animations
 │   │       ├── SmartImage.jsx   ← lazy-loading image with fallback
-│   │       ├── SectionHeading.jsx
-│   │       └── StatCounter.jsx  ← count-up numbers
+│   │       └── SectionHeading.jsx
 │   │
 │   ├── index.css                ← design tokens (colours, spacing, buttons)
 │   ├── App.jsx                  ← section order
@@ -78,7 +78,7 @@ portfolio-source/
 │   ├── deploy.yml               ← publishes `main` to the live site
 │   └── preview.yml              ← publishes other branches to a preview URL
 │
-├── index.html                   ← page title, SEO tags, fonts
+├── index.html                   ← page title, SEO tags
 ├── tailwind.config.js
 └── vite.config.js               ← `base` must match your repo name
 ```
@@ -92,11 +92,15 @@ You should not need to open a component file to change wording.
 
 ### Change text and wording
 
-Open **`src/data/siteContent.js`**. It holds your name, tagline, bio
-paragraphs, stats, section headings and footer.
+Open **`src/data/siteContent.js`**. It holds your name, the short hero
+intro, the highlight numbers under the hero, bio paragraphs, stats, section
+headings and footer.
 
-To highlight a word in the accent colour inside a bio paragraph, wrap it in
-double asterisks:
+Keep `intro` to about 20 words so the whole hero fits on one screen. Only put
+numbers in `highlights` that appear in your papers or CV.
+
+To give a word extra weight inside a bio paragraph, wrap it in double
+asterisks (single asterisks make it italic):
 
 ```js
 paragraphs: [
@@ -107,17 +111,23 @@ paragraphs: [
 ### Add or edit a project
 
 Open **`src/data/portfolioData.js`** and add an object to the `projects` array.
-The order in the array is the order on the page.
+The order in the array is the order on the page. The **first** project is
+shown large as the lead; the rest pair up below it, alternating wide and
+narrow.
+
+Use `fit: 'contain'` for white-background plots and diagrams: the whole
+figure is shown on a light mat instead of being cropped. Leave it out for
+photos, which are cropped to fill.
 
 ```js
 {
   title: 'My New Project',
   category: 'High-Performance Computing',   // small label on the card
   image: 'images/projects/my-image.png',    // no leading slash
-  featured: false,                          // true = card spans 2 columns
+  fit: 'contain',                           // for plots/diagrams; omit for photos
   description: 'One line shown on the card.',
   longDescription: 'Longer text shown in the pop-up when the card is clicked.',
-  techStack: ['CUDA', 'Python'],            // first 3 show on the card
+  techStack: ['CUDA', 'Python'],            // shown on the lead project and in the pop-up
   liveUrl: 'https://example.com',           // use '' to hide the button
   linkLabel: 'View Publication',            // button text (optional)
 },
@@ -131,42 +141,35 @@ the top.
 ```js
 {
   role: 'Research Assistant',
-  date: 'Jan 2026 — Present',
+  date: 'Jan 2026 - Present',     // use a plain hyphen with spaces
   org: 'University of Michigan',   // groups roles — see below
   orgMeta: 'Ann Arbor, MI',
-  current: true,          // adds a "Current" badge + pulsing timeline node
+  current: true,          // shows a "Current" label beside the date
   description: 'What you worked on.',
   technologies: ['Python', 'PyTorch'],
 },
 ```
 
 **How grouping works:** roles that sit next to each other in the array and
-share the **exact same `org` string** collapse into one expandable chapter.
-That's why your three BITS Pilani roles show as a single "BITS Pilani"
-card with a "3" badge rather than three separate entries.
+share the **exact same `org` string** are listed together under one heading.
+That's why your three BITS Pilani roles show under a single "BITS Pilani"
+heading rather than as three separate entries.
 
 - To add a role to an existing institution, give it the same `org` and
   place it beside the others in the array.
 - To start a new chapter, use a new `org` value.
-- Groups containing a `current: true` role are expanded by default;
-  the rest start collapsed.
 
-### Edit the landing-page skills
+### Edit the skills
 
-The four skill cards on the hero come from `coreSkills` in
+The "Toolkit" panel beside your bio comes from `coreSkills` in
 **`src/data/siteContent.js`**:
 
 ```js
 {
-  icon: 'BrainCircuit',        // see the icon list below
   area: 'Applied ML & GenAI',
   items: ['PyTorch', 'Diffusion Models', 'Transformers'],
 },
 ```
-
-Available icons: `BrainCircuit`, `Bot`, `ScanSearch`, `Cpu`. To use a
-different one, import it at the top of `src/components/Hero.jsx` and add it
-to the `skillIcons` map there.
 
 Keep this to **3–4 groups of 4–5 items** — it exists so a recruiter can read
 your stack in a couple of seconds, and more entries defeat that.
@@ -203,12 +206,8 @@ page — but remember to also remove `publications` from `navLinks` in
 400 KB**. Oversized images are the single biggest thing that slows the site
 down.
 
-> Two housekeeping notes on the current images:
-> - `public/images/projects/meshfree.jpg` is a 7680×4320 / 4 MB file being
->   displayed in a card a few hundred pixels wide. Resizing it would cut about
->   3.8 MB from the site.
-> - `public/images/projects/project4.jpg` is not referenced by any project —
->   safe to delete if you don't want it.
+> Housekeeping note: `public/images/projects/project4.jpg` is not referenced
+> by any project, so it is safe to delete if you don't want it.
 
 If an image is missing or broken the site shows a tidy branded placeholder
 rather than a broken-image icon, so a bad path will never look broken to a
@@ -221,21 +220,22 @@ If you rename it, update `resume:` in `src/data/siteContent.js`.
 
 ### Change the colours
 
-All colours are defined once at the top of **`src/index.css`** under `:root`.
+All colours are defined once at the top of **`src/index.css`**. The site
+follows the visitor's light/dark system setting, so there are two sets: one
+under `:root` (light) and one under `@media (prefers-color-scheme: dark)`.
 Change a value there and it updates everywhere:
 
 ```css
---color-accent: #4a9eff;            /* main accent (links, chips, highlights) */
---color-accent-secondary: #5eb3c7;  /* gradient partner */
---color-background: #08090c;        /* page background */
---color-card: #12151b;              /* card surfaces */
---color-primary: #f4f6fa;           /* headings / main text */
---color-secondary: #9aa4b5;         /* body text */
+--color-accent: #bf4a1c;       /* the one accent: buttons, links, highlights */
+--color-background: #f7f7f8;   /* page background */
+--color-surface: #fdfdfd;      /* panels (toolkit, publications, pop-up) */
+--color-plate: #fdfdfd;        /* mat behind research figures */
+--color-primary: #18181b;      /* headings / main text */
+--color-secondary: #4a4a52;    /* body text */
 ```
 
-If you change `--color-accent`, also search `src/index.css` for the
-hard-coded `rgba(74, 158, 255, …)` values and the `.section-title` gradient
-and update those to match — CSS variables can't be used inside `rgba()`.
+If you change the accent, change it in both blocks and check the text on
+buttons is still readable (`--color-on-accent`).
 
 ### Add, remove or reorder sections
 
@@ -326,13 +326,15 @@ classes defined in `src/index.css`:
 |---|---|
 | `.section-shell` | Standard max-width + horizontal padding |
 | `.section-spacing` | Standard vertical padding for a section |
-| `.section-title` | Large gradient section heading |
-| `.eyebrow` | Small uppercase label above a heading |
-| `.surface-card` | Card background, border and hover lift |
-| `.chip` | Small technology pill |
-| `.glass` | Frosted-glass panel (navbar, hero card) |
-| `.btn-primary` | Filled gradient button |
+| `.section-title` | Section heading |
+| `.meta` | Small mono text for dates, venues and categories |
+| `.chip` | Small technology tag (project pop-up) |
+| `.figure-plate` | Light mat behind research figures |
+| `.btn-primary` | Filled accent button |
 | `.btn-ghost` | Outlined button |
+
+Shape rule: panels and images use 12px corners (`rounded-xl`); buttons and
+tags are full pills.
 
 Reusable React pieces in `src/components/ui/`:
 
@@ -340,9 +342,8 @@ Reusable React pieces in `src/components/ui/`:
 |---|---|
 | `<Reveal>` | Fades/slides children in on scroll |
 | `<RevealGroup>` / `<RevealItem>` | Staggers a grid or list in sequence |
-| `<SmartImage>` | Lazy-loads, reserves space, falls back if broken |
-| `<SectionHeading>` | Consistent eyebrow + title + subtitle block |
-| `<StatCounter>` | Counts a number up when scrolled into view |
+| `<SmartImage>` | Lazy-loads, shows figures whole or photos cropped, falls back if broken |
+| `<SectionHeading>` | Consistent title + subtitle block |
 
 All animation respects the operating system's **"reduce motion"** setting —
 if a visitor has it on, everything appears instantly instead.
