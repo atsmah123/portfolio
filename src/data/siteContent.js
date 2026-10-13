@@ -28,6 +28,7 @@ export const profile = {
   },
   email: 'atharvm@umich.edu',
   linkedin: 'https://www.linkedin.com/in/atharva-mahajan-/',
+  github: 'https://github.com/atsmah123',
   photo: 'images/profile.jpeg',
   resume: 'atharva_mahajan_cv.pdf',
 }

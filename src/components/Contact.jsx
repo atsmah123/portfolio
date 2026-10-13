@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowUp, ArrowUpRight, FileText, Linkedin } from 'lucide-react'
+import { ArrowUp, ArrowUpRight, FileText, Github, Linkedin } from 'lucide-react'
 import { profile, sections, footer } from '../data/siteContent'
 import Reveal from './ui/Reveal'
 
@@ -39,6 +39,15 @@ const Contact = () => {
               >
                 <Linkedin size={16} strokeWidth={1.75} />
                 LinkedIn
+              </a>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                <Github size={16} strokeWidth={1.75} />
+                GitHub
               </a>
               <a
                 href={`${baseUrl}${profile.resume}`}
