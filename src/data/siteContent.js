@@ -26,7 +26,7 @@ export const profile = {
     name: 'University of Michigan',
     url: 'https://umich.edu',
   },
-  email: 'atharva@umich.edu',
+  email: 'atharvm@umich.edu',
   linkedin: 'https://www.linkedin.com/in/atharva-mahajan-/',
   photo: 'images/profile.jpeg',
   resume: 'atharva_mahajan_cv.pdf',
